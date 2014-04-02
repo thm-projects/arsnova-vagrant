@@ -10,17 +10,13 @@ Developers should not need to install any tools in order to get ARSnova up and r
 
 ## Current State
 
-This box is based on Debian Wheezy and Puppet 3. Currently, ARSnova is checked out, built via Maven, and is ready run with Jetty. However, the CouchDB is not yet running.
+This box is based on Debian Wheezy and Puppet 3. Currently, ARSnova is checked out, built via Maven, and is ready run with Jetty.
 
 Get started with the following commands:
 
 	$ vagrant init fadenb/debian-wheezy-puppet3
 	$ vagrant up
-	$ vagrant ssh
 
-Initializing and starting the VM might take some time. After connecting via SSH you can start ARSnova without any setup:
-
-	% cd /opt/arsnova-war
-	% mvn jetty:run -Dmobile.path=
+This will create a completely configured VM. However, the first start will take quite some time to finish. Once the machine is up and running, you can connect with `vagrant ssh`.
 
 To be continued...
