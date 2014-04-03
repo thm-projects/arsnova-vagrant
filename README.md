@@ -31,5 +31,5 @@ To be continued...
 ### TODO:
 
 - [x] Add a `stop.sh` script
-- [ ] Enable port forwarding for Web Sockets
+- [x] Enable port forwarding for Web Sockets
 - [ ] Add a motd with a short description of the important commands
