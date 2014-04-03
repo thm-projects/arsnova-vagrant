@@ -1,0 +1,3 @@
+[submodule "puppet/modules/git"]
+	path = puppet/modules/git
+	url = git://github.com/nesi/puppet-git.git
