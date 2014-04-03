@@ -69,4 +69,8 @@ class arsnova {
     content => template("arsnova/stop.sh.erb"),
     mode => "744"
   }
+
+  class { "motd":
+    template => "arsnova/motd.erb"
+  }
 }
