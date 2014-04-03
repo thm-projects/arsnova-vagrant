@@ -27,9 +27,3 @@ Then, in order to start ARSnova, type:
 This will build and start ARSnova. You can now visit http://localhost:8080/index.html in your browser.
 
 To be continued...
-
-### TODO:
-
-- [x] Add a `stop.sh` script
-- [x] Enable port forwarding for Web Sockets
-- [ ] Add a motd with a short description of the important commands
