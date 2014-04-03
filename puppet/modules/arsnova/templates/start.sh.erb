@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+echo -e "Starting ARSnova. This could take a few seconds...\c"
+
+CWD=`pwd`
+ARSNOVA_SERVER="<%= @server_path %>"
+ARSNOVA_MOBILE="<%= @mobile_path %>"
+
+PID_FILE_MOBILE="mobile.pid"
+PID_FILE_SERVER="server.pid"
+
+function kill_previous_instances {
+  if [ -e "$1" ]
+  then
+    kill `cat "$1"` 2>/dev/null 1>&2
+    rm "$1"
+  fi
+}
+
+kill_previous_instances $PID_FILE_MOBILE
+kill_previous_instances $PID_FILE_SERVER
+
+PID_MOBILE=0
+PID_SERVER=0
+
+cd "$ARSNOVA_MOBILE"
+ant -quiet sencha:app:watch 2>/dev/null 1>&2 &
+PID_MOBILE=$!
+
+cd "$ARSNOVA_SERVER"
+mvn -q jetty:run 2>/dev/null 1>&2 &
+PID_SERVER=$!
+
+cd "$CWD"
+
+echo "$PID_MOBILE" > "$PID_FILE_MOBILE"
+echo "$PID_SERVER" > "$PID_FILE_SERVER"
+
+RESPONSE_CODE=0
+while [ "$RESPONSE_CODE" -ne 200 ]
+do
+  # courtesy of http://superuser.com/a/442395
+  RESPONSE_CODE=`curl -s -o /dev/null -I -w "%{http_code}" -m 5 http://localhost:8080/index.html`
+  sleep 5
+  echo -e ".\c"
+done
+
+echo -e "\nARSnova is now ready @ http://localhost:8080/index.html"
