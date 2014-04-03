@@ -6,19 +6,10 @@ CWD=`pwd`
 ARSNOVA_SERVER="<%= @server_path %>"
 ARSNOVA_MOBILE="<%= @mobile_path %>"
 
-PID_FILE_MOBILE="mobile.pid"
-PID_FILE_SERVER="server.pid"
+PID_FILE_MOBILE="<%= @mobile_pid %>"
+PID_FILE_SERVER="<%= @server_pid %>"
 
-function kill_previous_instances {
-  if [ -e "$1" ]
-  then
-    kill `cat "$1"` 2>/dev/null 1>&2
-    rm "$1"
-  fi
-}
-
-kill_previous_instances $PID_FILE_MOBILE
-kill_previous_instances $PID_FILE_SERVER
+./stop.sh 2>/dev/null 1>&2
 
 PID_MOBILE=0
 PID_SERVER=0

@@ -5,6 +5,8 @@ class arsnova {
   $base_path = "/vagrant"
   $server_path = "$base_path/arsnova-war"
   $mobile_path = "$base_path/arsnova-mobile"
+  $server_pid = "server.pid"
+  $mobile_pid = "mobile.pid"
 
   package { "maven": ensure => "latest" }
   package { "couchdb": ensure => "latest" }
@@ -58,6 +60,13 @@ class arsnova {
     owner => "vagrant",
     group => "vagrant",
     content => template("arsnova/start.sh.erb"),
+    mode => "744"
+  }
+
+  file { "/home/vagrant/stop.sh":
+    owner => "vagrant",
+    group => "vagrant",
+    content => template("arsnova/stop.sh.erb"),
     mode => "744"
   }
 }

@@ -30,6 +30,6 @@ To be continued...
 
 ### TODO:
 
-- [ ] Add a `stop.sh` script
+- [x] Add a `stop.sh` script
 - [ ] Enable port forwarding for Web Sockets
 - [ ] Add a motd with a short description of the important commands
