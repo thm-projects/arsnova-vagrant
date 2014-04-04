@@ -8,11 +8,19 @@ This Vagrant configuration will provision a Debian development box with all tool
 
 Developers should not need to install any tools in order to get ARSnova up and running. Ideally, the only thing they will need is an IDE. All other tools as well as the required workflows shall be handled by the Vagrant box.
 
-## Current State
+## Getting Started
 
-This box is based on Debian Wheezy and Puppet 3. Currently, ARSnova is checked out, built via Maven, and is ready run with Jetty.
+This repository comes with several Git submodules. These can be automatically checked out while cloning by providing the `--recursive` flag:
 
-Get started with the following command:
+	git clone --recursive git://scm.thm.de/commana/arsnova-vagrant.git
+
+Alternatively, initialize and update the submodules after cloning:
+
+	git submodule update --init --recursive
+
+## Usage
+
+Start the machine with the following command:
 
 	$ vagrant up
 
@@ -26,4 +34,17 @@ Then, in order to start ARSnova, type:
 
 This will build and start ARSnova. You can now visit http://localhost:8080/index.html in your browser.
 
-To be continued...
+Finally, if you want to stop ARSnova, use this command:
+
+	% ./stop.sh
+
+## Is it any good?
+
+Yes.
+
+## Todo
+
+- [ ] Write "Contributing" section
+- [ ] Add a license
+- [ ] Fix tty error
+- [ ] Prepare for publishing
