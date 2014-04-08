@@ -2,6 +2,19 @@
 
 echo -e "Starting ARSnova. This could take a few seconds...\c"
 
+OUTPUT_REDIRECT="2>/dev/null 1>&2"
+VERBOSE=""
+while getopts v opt
+do
+  case $opt in
+    v)
+      OUTPUT_REDIRECT=""
+      VERBOSE="-v"
+      ;;
+  esac
+done
+shift $((OPTIND - 1))
+
 CWD=`pwd`
 ARSNOVA_SERVER="<%= @server_path %>"
 ARSNOVA_MOBILE="<%= @mobile_path %>"
@@ -9,17 +22,17 @@ ARSNOVA_MOBILE="<%= @mobile_path %>"
 PID_FILE_MOBILE="<%= @mobile_pid %>"
 PID_FILE_SERVER="<%= @server_pid %>"
 
-./stop.sh 2>/dev/null 1>&2
+./stop.sh $VERBOSE $OUTPUT_REDIRECT
 
 PID_MOBILE=0
 PID_SERVER=0
 
 cd "$ARSNOVA_MOBILE"
-ant -quiet sencha:app:watch 2>/dev/null 1>&2 &
+ant -quiet sencha:app:watch $OUTPUT_REDIRECT &
 PID_MOBILE=$!
 
 cd "$ARSNOVA_SERVER"
-mvn -q jetty:run 2>/dev/null 1>&2 &
+mvn -q jetty:run $OUTPUT_REDIRECT &
 PID_SERVER=$!
 
 cd "$CWD"

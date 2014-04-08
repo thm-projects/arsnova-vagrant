@@ -2,13 +2,24 @@
 
 echo -e "Stopping ARSnova...\c"
 
+OUTPUT_REDIRECT="2>/dev/null 1>&2"
+while getopts v opt
+do
+  case $opt in
+    v)
+      OUTPUT_REDIRECT=""
+      ;;
+  esac
+done
+shift $((OPTIND - 1))
+
 PID_FILE_MOBILE="<%= @mobile_pid %>"
 PID_FILE_SERVER="<%= @server_pid %>"
 
 function kill_previous_instances {
   if [ -e "$1" ]
   then
-    kill `cat "$1"` 2>/dev/null 1>&2
+    kill `cat "$1"` $OUTPUT_REDIRECT
     rm "$1"
   fi
 }
@@ -17,10 +28,10 @@ kill_previous_instances $PID_FILE_MOBILE
 kill_previous_instances $PID_FILE_SERVER
 
 # ARSnova mobile spawns processes which we need to stop as well
-SENCHA_PID=`jps | grep "sencha.jar" | awk "{print $1}"`
+SENCHA_PID=`jps | grep "sencha.jar" | awk '{print $1}'`
 if [ -n "$SENCHA_PID" ]
 then
-  kill "$SENCHA_PID" 2>/dev/null 1>&2
+  kill "$SENCHA_PID" $OUTPUT_REDIRECT
 fi
 
 echo -e "done!"
