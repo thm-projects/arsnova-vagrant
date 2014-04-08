@@ -68,8 +68,10 @@ Yes.
 
 ## Todo
 
-- [ ] Create Multi VM configuration
-- [ ] Write "Contributing" section
-- [ ] Add a license
-- [ ] Fix tty error
-- [ ] Prepare for publishing
+- [ ] :lipstick: Make `-v` output prettier for start and stop scripts
+- [ ] :racehorse: Ensure compass processes are killed in stop script
+- [ ] :bulb: Create Multi VM configuration
+- [ ] :memo: Write "Contributing" section
+- [ ] :memo: Add a license
+- [ ] :boom: Fix tty error
+- [ ] :lipstick: Prepare for publishing
