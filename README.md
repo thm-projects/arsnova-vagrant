@@ -22,7 +22,7 @@ Alternatively, initialize and update the submodules after cloning:
 
 Start the machine with the following command:
 
-	$ vagrant up
+	$ vagrant up dev
 
 This will create a completely configured VM. Running this the first time will download and install all required packages. Depending on your internet connection this operation will take some time. Once the machine is up and running, you can connect with:
 
@@ -37,6 +37,16 @@ This will build and start ARSnova. You can now visit http://localhost:8080/index
 Finally, if you want to stop ARSnova, use this command:
 
 	% ./stop.sh
+
+### Testing for production
+
+The machine's default environment is for development. If you are happy with your changes in development mode, you may wish to test them in a more realistic environment. For creating a production-like environment, type:
+
+	$ vagrant up production
+
+All commands remain the same, e.g. use `./start.sh` on the machine. But make sure you append the word `production` to all vagrant commands.
+
+*Note: Currently, only one machine can be up at the same time or else the forwarded ports will be blocked.*
 
 ## ARSnova repositories
 
@@ -70,7 +80,8 @@ Yes.
 
 - [ ] :lipstick: Make `-v` output prettier for start and stop scripts
 - [ ] :racehorse: Ensure compass processes are killed in stop script
-- [ ] :bulb: Create Multi VM configuration
+- [x] :bulb: Create Multi VM configuration
+- [ ] :bulb: Configure custom ports for each VM
 - [ ] :memo: Write "Contributing" section
 - [ ] :memo: Add a license
 - [ ] :boom: Fix tty error

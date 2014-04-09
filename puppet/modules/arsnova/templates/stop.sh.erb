@@ -19,7 +19,7 @@ PID_FILE_SERVER="<%= @server_pid %>"
 function kill_previous_instances {
   if [ -e "$1" ]
   then
-    kill `cat "$1"` $OUTPUT_REDIRECT
+    eval "kill `cat $1` $OUTPUT_REDIRECT"
     rm "$1"
   fi
 }
@@ -31,7 +31,7 @@ kill_previous_instances $PID_FILE_SERVER
 SENCHA_PID=`jps | grep "sencha.jar" | awk '{print $1}'`
 if [ -n "$SENCHA_PID" ]
 then
-  kill "$SENCHA_PID" $OUTPUT_REDIRECT
+  eval "kill $SENCHA_PID $OUTPUT_REDIRECT"
 fi
 
 echo -e "done!"

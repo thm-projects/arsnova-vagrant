@@ -8,7 +8,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
-  config.vm.hostname = "arsnova-dev"
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "fadenb/debian-wheezy-puppet3"
@@ -76,11 +75,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # #               Managed by Puppet.\n"
   # # }
   #
-  config.vm.provision "puppet" do |puppet|
-   puppet.manifests_path = "puppet/manifests"
-   puppet.manifest_file  = "debian-wheezy.pp"
-   puppet.module_path = "puppet/modules"
-  end
+  pp_manifest_path = "puppet/manifests"
+  pp_module_path = "puppet/modules"
+  pp_manifest_file = "debian-wheezy.pp"
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
@@ -119,4 +116,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # chef-validator, unless you changed the configuration.
   #
   #   chef.validation_client_name = "ORGNAME-validator"
+
+  config.vm.define "dev", primary: true do |dev|
+    dev.vm.hostname = "arsnova-dev"
+    dev.vm.provision "puppet" do |puppet|
+      puppet.manifests_path = pp_manifest_path
+      puppet.manifest_file = pp_manifest_file
+      puppet.module_path = pp_module_path
+      puppet.options = "--environment=development"
+    end
+  end
+  config.vm.define "production" do |production|
+    production.vm.hostname = "arsnova-production"
+    production.vm.provision "puppet" do |puppet|
+      puppet.manifests_path = pp_manifest_path
+      puppet.manifest_file = pp_manifest_file
+      puppet.module_path = pp_module_path
+      puppet.options = "--environment=production"
+    end
+  end
 end

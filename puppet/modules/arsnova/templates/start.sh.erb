@@ -22,17 +22,17 @@ ARSNOVA_MOBILE="<%= @mobile_path %>"
 PID_FILE_MOBILE="<%= @mobile_pid %>"
 PID_FILE_SERVER="<%= @server_pid %>"
 
-./stop.sh $VERBOSE $OUTPUT_REDIRECT
+eval "./stop.sh $VERBOSE $OUTPUT_REDIRECT"
 
 PID_MOBILE=0
 PID_SERVER=0
 
 cd "$ARSNOVA_MOBILE"
-ant -quiet sencha:app:watch $OUTPUT_REDIRECT &
+eval "ant -quiet sencha:app:watch -e <%= @sencha_env %> $OUTPUT_REDIRECT &"
 PID_MOBILE=$!
 
 cd "$ARSNOVA_SERVER"
-mvn -q jetty:run $OUTPUT_REDIRECT &
+eval "mvn -q jetty:run -Dmobile.path=<%= @mobile_target %> $OUTPUT_REDIRECT &"
 PID_SERVER=$!
 
 cd "$CWD"
