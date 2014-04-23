@@ -78,11 +78,19 @@ Yes.
 
 ## Todo
 
-- [ ] :lipstick: Make `-v` output prettier for start and stop scripts
+### :bulb: Multi VM
+
+- [x] Create Multi VM configuration
+- [ ] Configure custom ports for each VM
+- [ ] Add Tomcat for production VM
+
+### :memo: Documentation
+
+- [ ] Make `-v` output prettier for start and stop scripts
+- [ ] Write "Contributing" section
+- [ ] Add a license
+- [ ] Prepare for publishing
+
+### :lipstick: Enhancements
 - [ ] :racehorse: Ensure compass processes are killed in stop script
-- [x] :bulb: Create Multi VM configuration
-- [ ] :bulb: Configure custom ports for each VM
-- [ ] :memo: Write "Contributing" section
-- [ ] :memo: Add a license
 - [ ] :boom: Fix tty error
-- [ ] :lipstick: Prepare for publishing
