@@ -19,9 +19,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
-  # socket.io port (defined in /etc/arsnova/arsnova.properties file)
-  config.vm.network "forwarded_port", guest: 10443, host: 10443
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -125,6 +122,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.module_path = pp_module_path
       puppet.options = "--environment=development"
     end
+    dev.vm.network "forwarded_port", guest: 8080, host: 8080
+    # socket.io port
+    dev.vm.network "forwarded_port", guest: 10443, host: 10443
   end
   config.vm.define "production" do |production|
     production.vm.hostname = "arsnova-production"
@@ -134,5 +134,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.module_path = pp_module_path
       puppet.options = "--environment=production"
     end
+    production.vm.network "forwarded_port", guest: 8080, host: 8081
+    # socket.io port
+    production.vm.network "forwarded_port", guest: 10444, host: 10444
   end
 end

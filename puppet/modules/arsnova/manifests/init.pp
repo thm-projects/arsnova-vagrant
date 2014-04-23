@@ -3,8 +3,16 @@ class arsnova {
   include git
 
   case $environment {
-    development: { $sencha_env = "testing" }
-    production: { $sencha_env = "production" }
+    development: {
+      $sencha_env = "testing"
+      $socketio_ip = "0.0.0.0"
+      $socketio_port = "10443"
+    }
+    production: {
+      $sencha_env = "production"
+      $socketio_ip = "0.0.0.0"
+      $socketio_port = "10444"
+    }
     default: { fail("Unrecognized environment $environment") }
   }
 
@@ -54,6 +62,13 @@ class arsnova {
     source => "$server_path/src/main/webapp/arsnova.properties.example",
     ensure => "present",
     require => [ File["/etc/arsnova"], Git::Repo["arsnova-war"] ]
+  }
+
+  socketio { "socketio-config":
+    file => "/etc/arsnova/arsnova.properties",
+    ip => $socketio_ip,
+    port => $socketio_port,
+    require => File["/etc/arsnova/arsnova.properties"]
   }
 
   exec { "initialize-couchdb":

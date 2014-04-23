@@ -81,7 +81,7 @@ Yes.
 ### :bulb: Multi VM
 
 - [x] Create Multi VM configuration
-- [ ] Configure custom ports for each VM
+- [x] Configure custom ports for each VM
 - [ ] Add Tomcat for production VM
 
 ### :memo: Documentation
