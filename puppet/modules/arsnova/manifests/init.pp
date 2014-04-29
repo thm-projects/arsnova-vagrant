@@ -30,7 +30,8 @@ class arsnova {
 
   service { "couchdb":
     ensure => "running",
-    enable => true
+    enable => true,
+    require => Package["couchdb"]
   }
 
   git::repo { "arsnova-war":
@@ -71,11 +72,17 @@ class arsnova {
     require => File["/etc/arsnova/arsnova.properties"]
   }
 
+  couchdb { "couchdb-host-access":
+    notify => Service["couchdb"],
+    # Wait until all CouchDB tasks finished, or this task will make them fail.
+    require => [ Service["couchdb"], Exec["initialize-couchdb"] ]
+  }
+
   exec { "initialize-couchdb":
   	cwd => "$base_path/arsnova-setuptool",
   	command => "/usr/bin/python tool.py",
   	require => [ Git::Repo["arsnova-setuptool"], Service["couchdb"], File["/etc/arsnova/arsnova.properties"] ],
-  	user => "vagrant"
+  	user => "vagrant",
   }
 
   file { "/home/vagrant/start.sh":

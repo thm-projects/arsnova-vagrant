@@ -125,6 +125,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     dev.vm.network "forwarded_port", guest: 8080, host: 8080
     # socket.io port
     dev.vm.network "forwarded_port", guest: 10443, host: 10443
+    # CouchDB
+    dev.vm.network "forwarded_port", guest: 5984, host: 5984
   end
   config.vm.define "production" do |production|
     production.vm.hostname = "arsnova-production"
@@ -137,5 +139,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     production.vm.network "forwarded_port", guest: 8080, host: 8081
     # socket.io port
     production.vm.network "forwarded_port", guest: 10444, host: 10444
+    # CouchDB
+    production.vm.network "forwarded_port", guest: 5984, host: 5985
   end
 end
