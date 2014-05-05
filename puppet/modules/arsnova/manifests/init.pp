@@ -74,15 +74,14 @@ class arsnova {
 
   couchdb { "couchdb-host-access":
     notify => Service["couchdb"],
-    # Wait until all CouchDB tasks finished, or this task will make them fail.
-    require => [ Service["couchdb"], Exec["initialize-couchdb"] ]
   }
 
   exec { "initialize-couchdb":
-  	cwd => "$base_path/arsnova-setuptool",
-  	command => "/usr/bin/python tool.py",
-  	require => [ Git::Repo["arsnova-setuptool"], Service["couchdb"], File["/etc/arsnova/arsnova.properties"] ],
-  	user => "vagrant",
+    cwd => "$base_path/arsnova-setuptool",
+    command => "/usr/bin/python tool.py",
+    require => [ Git::Repo["arsnova-setuptool"], File["/etc/arsnova/arsnova.properties"] ],
+    user => "vagrant",
+    before => Couchdb["couchdb-host-access"]
   }
 
   file { "/home/vagrant/start.sh":
