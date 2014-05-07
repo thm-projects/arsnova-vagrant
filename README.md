@@ -1,12 +1,10 @@
 # ARSnova Vagrant
 
-*Note: This project is work in progress.*
-
 This Vagrant configuration will provision a Debian development box with all tools required for ARSnova.
 
 ## Goal
 
-Developers should not need to install any tools in order to get ARSnova up and running. Ideally, the only thing they will need is an IDE. All other tools as well as the required workflows shall be handled by the Vagrant box.
+ARSnova Developers should not need to install any tools in order to get ARSnova up and running. Ideally, the only thing needed is an IDE. All other tools as well as the required workflows shall be handled by the Vagrant box.
 
 ## Getting Started
 
@@ -46,8 +44,6 @@ The machine's default environment is for development. If you are happy with your
 
 All commands remain the same, e.g. use `./start.sh` on the machine. But make sure you append the word `production` to all vagrant commands.
 
-*Note: Currently, only one machine can be up at the same time or else the forwarded ports will be blocked.*
-
 ## ARSnova repositories
 
 After the first boot of your VM, you will find the following repositories inside this project's root folder:
@@ -71,6 +67,22 @@ Don't forget to set your `master` branch to the new remote:
 
 	$ git fetch origin
 	$ git branch -u origin/master
+
+## Ports
+
+The following ports are used on the host machine:
+
+### Development
+
+- 8080 (Web)
+- 10443 (socket.io)
+- 5984 (CouchDB)
+
+### Production
+
+- 8081 (Web)
+- 10444 (socket.io)
+- 5985 (CouchDB)
 
 ## Is it any good?
 
