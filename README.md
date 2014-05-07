@@ -100,8 +100,8 @@ Yes.
 
 - [ ] Make `-v` output prettier for start and stop scripts
 - [ ] Write "Contributing" section
-- [ ] Add a license
-- [ ] Prepare for publishing
+- [x] Add a license
+- [x] Prepare for publishing
 
 ### :lipstick: Enhancements
 - [ ] :racehorse: Ensure compass processes are killed in stop script
