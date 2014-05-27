@@ -84,6 +84,18 @@ The following ports are used on the host machine:
 - 10444 (socket.io)
 - 5985 (CouchDB)
 
+## Using the GUI
+
+If you wish to use a window manager, you first need to shutdown your machine in case it is currently running. Use `vagrant halt` for this purpose. Then, edit the `Vagrantfile` and activate the GUI option:
+
+	config.vm.provider "virtualbox" do |vb|
+		vb.gui = true
+	end
+
+Once you restart the VM, log in with Vagrant's default credentials: user and password are both `vagrant`. Finally, the GUI is started by entering:
+
+	startx
+
 ## Is it any good?
 
 Yes.
@@ -106,3 +118,4 @@ Yes.
 ### :lipstick: Enhancements
 - [ ] :racehorse: Ensure compass processes are killed in stop script
 - [ ] :boom: Fix tty error
+- [x] :lipstick: Configure optional GUI

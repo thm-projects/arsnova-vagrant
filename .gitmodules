@@ -7,3 +7,6 @@
 [submodule "puppet/modules/motd"]
 	path = puppet/modules/motd
 	url = https://github.com/saz/puppet-motd.git
+[submodule "puppet/modules/tomcat"]
+	path = puppet/modules/tomcat
+	url = https://github.com/camptocamp/puppet-tomcat.git

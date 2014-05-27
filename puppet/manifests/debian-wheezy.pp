@@ -12,3 +12,18 @@ file { "/usr/local/bin":
   group => "vagrant",
   recurse => true
 }
+
+# GUI, see https://wiki.debian.org/Xfce
+package { "xfce4": ensure => "latest" }
+package { "xfce4-goodies": ensure => "latest" }
+package { "chromium-browser": ensure => "latest" }
+file { "/home/vagrant/.xsession":
+  owner => "vagrant",
+  group => "vagrant",
+  content => "exec ck-launch-session startxfce4"
+}
+file_line { "pam":
+  path => "/etc/pam.d/common-session",
+  match => "session\\s*required\\s*pam_unix.so",
+  line => "session required pam_unix.so\nsession optional pam_loginuid.so"
+}
