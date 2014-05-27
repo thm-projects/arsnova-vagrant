@@ -1,19 +1,8 @@
 class arsnova {
   include senchacmd
   include git
-
-  case $environment {
-    development: {
-      $sencha_env = "testing"
-      $socketio_ip = "0.0.0.0"
-      $socketio_port = "10443"
-    }
-    production: {
-      $sencha_env = "production"
-      $socketio_ip = "0.0.0.0"
-      $socketio_port = "10444"
-    }
-    default: { fail("Unrecognized environment $environment") }
+  if $environment == "production" {
+    include tomcat7
   }
 
   $base_path = "/vagrant"
@@ -22,6 +11,22 @@ class arsnova {
   $mobile_target = "$mobile_path/src/main/webapp/build/$sencha_env/ARSnova"
   $server_pid = "server.pid"
   $mobile_pid = "mobile.pid"
+
+  case $environment {
+    development: {
+      $deploy_path = $server_path
+      $sencha_env = "testing"
+      $socketio_ip = "0.0.0.0"
+      $socketio_port = "10443"
+    }
+    production: {
+      $deploy_path = "$tomcat7::tomcat_path/bin"
+      $sencha_env = "production"
+      $socketio_ip = "0.0.0.0"
+      $socketio_port = "10444"
+    }
+    default: { fail("Unrecognized environment $environment") }
+  }
 
   package { "maven": ensure => "latest" }
   package { "couchdb": ensure => "latest" }

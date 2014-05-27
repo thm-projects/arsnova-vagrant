@@ -16,6 +16,9 @@ done
 shift $((OPTIND - 1))
 
 CWD=`pwd`
+<% if @environment == "production" %>
+ARSNOVA_TOMCAT="<%= @deploy_path %>"
+<% end %>
 ARSNOVA_SERVER="<%= @server_path %>"
 ARSNOVA_MOBILE="<%= @mobile_path %>"
 
@@ -31,9 +34,17 @@ cd "$ARSNOVA_MOBILE"
 eval "ant -quiet sencha:app:watch -e <%= @sencha_env %> $OUTPUT_REDIRECT &"
 PID_MOBILE=$!
 
+<% if @environment == "development" %>
 cd "$ARSNOVA_SERVER"
 eval "mvn -q jetty:run -Dmobile.path=<%= @mobile_target %> $OUTPUT_REDIRECT &"
 PID_SERVER=$!
+<% else %>
+cd "$ARSNOVA_TOMCAT"
+eval "./catalina.sh start $OUTPUT_REDIRECT"
+PID_SERVER=$!
+cd "$ARSNOVA_SERVER"
+eval "mvn -q tomcat7:deploy -Dmobile.path=<%= @mobile_target %> $OUTPUT_REDIRECT &"
+<% end %>
 
 cd "$CWD"
 

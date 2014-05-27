@@ -44,6 +44,8 @@ The machine's default environment is for development. If you are happy with your
 
 All commands remain the same, e.g. use `./start.sh` on the machine. But make sure you append the word `production` to all vagrant commands.
 
+*Note:* In contrast to the development machine all changes have to be manually redeployed to Tomcat in the production environment. To do this, run `mvn tomcat7:deploy` in the `arsnova-war` directory.
+
 ## ARSnova repositories
 
 After the first boot of your VM, you will find the following repositories inside this project's root folder:
@@ -106,7 +108,7 @@ Yes.
 
 - [x] Create Multi VM configuration
 - [x] Configure custom ports for each VM
-- [ ] Add Tomcat for production VM
+- [x] Add Tomcat for production VM
 
 ### :memo: Documentation
 
