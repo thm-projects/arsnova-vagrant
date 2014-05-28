@@ -8,7 +8,6 @@ class arsnova {
   $base_path = "/vagrant"
   $server_path = "$base_path/arsnova-war"
   $mobile_path = "$base_path/arsnova-mobile"
-  $mobile_target = "$mobile_path/src/main/webapp/build/$sencha_env/ARSnova"
   $server_pid = "server.pid"
   $mobile_pid = "mobile.pid"
 
@@ -27,6 +26,7 @@ class arsnova {
     }
     default: { fail("Unrecognized environment $environment") }
   }
+  $mobile_target = "$mobile_path/src/main/webapp/build/$sencha_env/ARSnova"
 
   package { "maven": ensure => "latest" }
   package { "couchdb": ensure => "latest" }

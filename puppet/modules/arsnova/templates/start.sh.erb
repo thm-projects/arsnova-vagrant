@@ -31,7 +31,8 @@ PID_MOBILE=0
 PID_SERVER=0
 
 cd "$ARSNOVA_MOBILE"
-eval "ant -quiet sencha:app:watch -e <%= @sencha_env %> $OUTPUT_REDIRECT &"
+eval "ant -quiet sencha:build:<%= @sencha_env %> $OUTPUT_REDIRECT"
+eval "ant -quiet sencha:app:watch -Denvironment=<%= @sencha_env %> $OUTPUT_REDIRECT &"
 PID_MOBILE=$!
 
 <% if @environment == "development" %>

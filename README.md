@@ -98,6 +98,10 @@ Once you restart the VM, log in with Vagrant's default credentials: user and pas
 
 	startx
 
+## Contributing
+
+Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) document.
+
 ## Is it any good?
 
 Yes.
@@ -112,8 +116,8 @@ Yes.
 
 ### :memo: Documentation
 
-- [ ] Make `-v` output prettier for start and stop scripts
-- [ ] Write "Contributing" section
+- [ ] ~~Make `-v` output prettier for start and stop scripts~~
+- [x] Write "Contributing" section
 - [x] Add a license
 - [x] Prepare for publishing
 
