@@ -122,6 +122,6 @@ Yes.
 - [x] Prepare for publishing
 
 ### :lipstick: Enhancements
-- [ ] :racehorse: Ensure compass processes are killed in stop script
+- [x] :racehorse: Ensure compass processes are killed in stop script
 - [ ] :boom: Fix tty error
 - [x] :lipstick: Configure optional GUI

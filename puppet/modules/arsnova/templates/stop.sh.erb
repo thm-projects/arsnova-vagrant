@@ -24,14 +24,20 @@ function kill_previous_instances {
   fi
 }
 
+function kill_running_processes {
+  if [ -n "$1" ]
+  then
+    eval "kill $1 $OUTPUT_REDIRECT"
+  fi
+}
+
 kill_previous_instances $PID_FILE_MOBILE
 kill_previous_instances $PID_FILE_SERVER
 
 # ARSnova mobile spawns processes which we need to stop as well
 SENCHA_PID=`jps | grep "sencha.jar" | awk '{print $1}'`
-if [ -n "$SENCHA_PID" ]
-then
-  eval "kill $SENCHA_PID $OUTPUT_REDIRECT"
-fi
+COMPASS_PID=`ps aux | grep '[c]ompass' | awk '{print $2;exit}'`
+kill_running_processes $SENCHA_PID
+kill_running_processes $COMPASS_PID
 
 echo -e "done!"
