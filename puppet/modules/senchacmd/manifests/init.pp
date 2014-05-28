@@ -1,7 +1,7 @@
 class senchacmd {
   package { "unzip": ensure => "latest" }
 
-  $sencha_version = "4.0.3.74"
+  $sencha_version = "4.0.4.84"
   $sencha_cmd_download = "http://cdn.sencha.com/cmd/$sencha_version/SenchaCmd-$sencha_version-linux-x64.run.zip"
   $sencha_cmd_install = "SenchaCmd-$sencha_version-linux-x64.run"
   $sencha_path = "/usr/local/bin/Sencha/Cmd/$sencha_version"
