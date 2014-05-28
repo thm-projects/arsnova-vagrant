@@ -22,6 +22,7 @@ ARSNOVA_TOMCAT="<%= @deploy_path %>"
 ARSNOVA_SERVER="<%= @server_path %>"
 ARSNOVA_MOBILE="<%= @mobile_path %>"
 
+PID_FILE_LISTEN="<%= @listen_pid %>"
 PID_FILE_MOBILE="<%= @mobile_pid %>"
 PID_FILE_SERVER="<%= @server_pid %>"
 
@@ -29,8 +30,11 @@ eval "./stop.sh $VERBOSE $OUTPUT_REDIRECT"
 
 PID_MOBILE=0
 PID_SERVER=0
+PID_LISTEN=0
 
 cd "$ARSNOVA_MOBILE"
+eval "ruby ~/listen.rb $OUTPUT_REDIRECT &"
+PID_LISTEN=$!
 eval "ant -quiet sencha:build:<%= @sencha_env %> $OUTPUT_REDIRECT"
 eval "ant -quiet sencha:app:watch -Denvironment=<%= @sencha_env %> $OUTPUT_REDIRECT &"
 PID_MOBILE=$!
@@ -49,6 +53,7 @@ eval "mvn -q tomcat7:deploy -Dmobile.path=<%= @mobile_target %> $OUTPUT_REDIRECT
 
 cd "$CWD"
 
+echo "$PID_LISTEN" > "$PID_FILE_LISTEN"
 echo "$PID_MOBILE" > "$PID_FILE_MOBILE"
 echo "$PID_SERVER" > "$PID_FILE_SERVER"
 

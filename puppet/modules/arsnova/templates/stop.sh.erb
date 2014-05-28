@@ -13,6 +13,7 @@ do
 done
 shift $((OPTIND - 1))
 
+PID_FILE_LISTEN="<%= @listen_pid %>"
 PID_FILE_MOBILE="<%= @mobile_pid %>"
 PID_FILE_SERVER="<%= @server_pid %>"
 
@@ -31,6 +32,7 @@ function kill_running_processes {
   fi
 }
 
+kill_previous_instances $PID_FILE_LISTEN
 kill_previous_instances $PID_FILE_MOBILE
 kill_previous_instances $PID_FILE_SERVER
 

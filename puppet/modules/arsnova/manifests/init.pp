@@ -10,6 +10,7 @@ class arsnova {
   $mobile_path = "$base_path/arsnova-mobile"
   $server_pid = "server.pid"
   $mobile_pid = "mobile.pid"
+  $listen_pid = "listen.pid"
 
   case $environment {
     development: {
@@ -32,6 +33,8 @@ class arsnova {
   package { "couchdb": ensure => "latest" }
   package { "openjdk-7-jdk": ensure => "latest" }
   package { "ant": ensure => "latest" }
+  package { "ruby-dev": ensure => "latest" }
+  package { "listen": ensure => "latest", provider => "gem" }
 
   service { "couchdb":
     ensure => "running",
@@ -102,6 +105,12 @@ class arsnova {
     group => "vagrant",
     content => template("arsnova/stop.sh.erb"),
     mode => "744"
+  }
+
+  file { "/home/vagrant/listen.rb":
+    owner => "vagrant",
+    group => "vagrant",
+    content => template("arsnova/listen.rb.erb")
   }
 
   class { "motd":

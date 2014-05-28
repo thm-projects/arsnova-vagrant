@@ -22,6 +22,7 @@ file { "/home/vagrant/.xsession":
   group => "vagrant",
   content => "exec ck-launch-session startxfce4"
 }
+# Adds multiple lines, but that doesn't seem to be a problem
 file_line { "pam":
   path => "/etc/pam.d/common-session",
   match => "session\\s*required\\s*pam_unix.so",
