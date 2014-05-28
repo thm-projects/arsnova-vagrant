@@ -1,0 +1,14 @@
+require 'listen'
+require 'fileutils'
+
+last_change = Time.now
+
+listener = Listen.to('<%= @mobile_path %>/src/main/webapp/app', force_polling: true, latency: 2.0, wait_for_delay: 1) do |modified, added, removed|
+	if modified && (Time.now - last_change > 5) then
+		puts "Detected changes to #{modified}"
+		FileUtils.touch modified
+		last_change = Time.now
+	end
+end
+listener.start
+sleep
