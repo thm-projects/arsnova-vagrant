@@ -128,7 +128,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # CouchDB
     dev.vm.network "forwarded_port", guest: 5984, host: 5984
   end
-  config.vm.define "production" do |production|
+  config.vm.define "production", autostart: false do |production|
     production.vm.hostname = "arsnova-production"
     production.vm.provision "puppet" do |puppet|
       puppet.manifests_path = pp_manifest_path
