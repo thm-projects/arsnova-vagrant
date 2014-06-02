@@ -130,7 +130,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     dev.vm.network "forwarded_port", guest: 5984, host: 5984
 =end
   end
-  config.vm.define "production" do |production|
+  config.vm.define "production", autostart: false do |production|
     production.vm.hostname = "arsnova-production"
 =begin
     production.vm.provision "puppet" do |puppet|
