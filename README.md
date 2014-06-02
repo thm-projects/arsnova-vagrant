@@ -10,7 +10,7 @@ ARSnova Developers should not need to install any tools in order to get ARSnova 
 
 This repository comes with several Git submodules. These can be automatically checked out while cloning by providing the `--recursive` flag:
 
-	git clone --recursive git://scm.thm.de/commana/arsnova-vagrant.git
+	git clone --recursive https://github.com/thm-projects/arsnova-vagrant.git
 
 Alternatively, initialize and update the submodules after cloning:
 
@@ -106,22 +106,6 @@ Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) document.
 
 Yes.
 
-## Todo
+## Credits
 
-### :bulb: Multi VM
-
-- [x] Create Multi VM configuration
-- [x] Configure custom ports for each VM
-- [x] Add Tomcat for production VM
-
-### :memo: Documentation
-
-- [ ] ~~Make `-v` output prettier for start and stop scripts~~
-- [x] Write "Contributing" section
-- [x] Add a license
-- [x] Prepare for publishing
-
-### :lipstick: Enhancements
-- [x] :racehorse: Ensure compass processes are killed in stop script
-- [ ] :boom: Fix tty error
-- [x] :lipstick: Configure optional GUI
+ARSnova is powered by Technische Hochschule Mittelhessen - University of Applied Sciences.
