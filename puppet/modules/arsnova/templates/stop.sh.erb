@@ -13,8 +13,8 @@ do
 done
 shift $((OPTIND - 1))
 
-PID_FILE_LISTEN="<%= @listen_pid %>"
-PID_FILE_MOBILE="<%= @mobile_pid %>"
+#PID_FILE_LISTEN="<%= @listen_pid %>"
+#PID_FILE_MOBILE="<%= @mobile_pid %>"
 PID_FILE_SERVER="<%= @server_pid %>"
 
 function kill_previous_instances {
@@ -32,14 +32,14 @@ function kill_running_processes {
   fi
 }
 
-kill_previous_instances $PID_FILE_LISTEN
-kill_previous_instances $PID_FILE_MOBILE
+#kill_previous_instances $PID_FILE_LISTEN
+#kill_previous_instances $PID_FILE_MOBILE
 kill_previous_instances $PID_FILE_SERVER
 
 # ARSnova mobile spawns processes which we need to stop as well
-SENCHA_PID=`jps | grep "sencha.jar" | awk '{print $1}'`
-COMPASS_PID=`ps aux | grep '[c]ompass' | awk '{print $2;exit}'`
-kill_running_processes $SENCHA_PID
-kill_running_processes $COMPASS_PID
+#SENCHA_PID=`jps | grep "sencha.jar" | awk '{print $1}'`
+#COMPASS_PID=`ps aux | grep '[c]ompass' | awk '{print $2;exit}'`
+#kill_running_processes $SENCHA_PID
+#kill_running_processes $COMPASS_PID
 
 echo -e "done!"

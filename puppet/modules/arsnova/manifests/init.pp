@@ -116,4 +116,12 @@ class arsnova {
   class { "motd":
     template => "arsnova/motd.erb"
   }
+
+  # Peer-Review WE3 Homework #0
+  file { "/home/vagrant/review.sh":
+    owner => "vagrant",
+    group => "vagrant",
+    content => template("arsnova/review.sh.erb"),
+    mode => "744"
+  }
 }
