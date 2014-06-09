@@ -4,7 +4,7 @@ This Vagrant configuration will provision a Debian development box with all tool
 
 ## Goal
 
-ARSnova Developers should not need to install any tools in order to get ARSnova up and running. Ideally, the only thing needed is an IDE. All other tools as well as the required workflows shall be handled by the Vagrant box.
+ARSnova developers should not need to install any tools in order to get ARSnova up and running. Ideally, the only thing needed is an IDE. All other tools as well as the required workflows shall be handled by the Vagrant box.
 
 ## Getting Started
 
@@ -42,7 +42,7 @@ The machine's default environment is for development. If you are happy with your
 
 	$ vagrant up production
 
-All commands remain the same, e.g. use `./start.sh` on the machine. But make sure you append the word `production` to all vagrant commands.
+All commands remain the same, e.g., use `./start.sh` on the machine. But make sure you append the word `production` to all vagrant commands.
 
 *Note:* In contrast to the development machine all changes have to be manually redeployed to Tomcat in the production environment. To do this, run `mvn tomcat7:deploy` in the `arsnova-war` directory.
 
@@ -108,4 +108,4 @@ Yes.
 
 ## Credits
 
-ARSnova is powered by Technische Hochschule Mittelhessen - University of Applied Sciences.
+ARSnova is powered by THM - Technische Hochschule Mittelhessen - University of Applied Sciences.
