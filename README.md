@@ -88,7 +88,7 @@ The following ports are used on the host machine:
 
 ## Using the GUI
 
-If you wish to use a window manager, you first need to shutdown your machine in case it is currently running. Use `vagrant halt` for this purpose. Then, edit the `Vagrantfile` and activate the GUI option:
+If you wish to use the window manager [Xfce](http://www.xfce.org), you first need to shutdown your machine in case it is currently running. Use `vagrant halt` for this purpose. Then, edit the `Vagrantfile` and activate the GUI option:
 
 	config.vm.provider "virtualbox" do |vb|
 		vb.gui = true
