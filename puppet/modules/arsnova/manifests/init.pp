@@ -116,37 +116,48 @@ class arsnova {
     template => "arsnova/motd.erb"
   }
 
-  # Apache
-  class { "apache":
-    default_mods        => false,
-    default_confd_files => false
-  }
+  if $environment == "production" {
+    # Apache
+    class { "apache":
+      default_mods        => false,
+      default_confd_files => false
+    }
 
-  package { "libapache2-mod-jk":
-    ensure => "present",
-  }
+    package { "libapache2-mod-jk":
+      ensure => "present",
+    }
 
-  apache::vhost { "arsnova.eu.local":
-    docroot => "/var/www",
-    redirect_source => "/mobile/presenter",
-    redirect_dest => "/presenter",
-    rewrites => [
-      {
-        comment      => 'Redirect / to /mobile',
-        rewrite_rule => ['^/$ /mobile/ [R=301,L]'],
-        rewrite_cond => ['%{REQUEST_URI} !^/mobile'],
-        rewrite_rule => ['^/(.+) /mobile/$1 [PT]']
-      },
-    ],
-    custom_fragment => 'JkMount /mobile* balancer'
-  }
+    apache::vhost { "arsnova.eu.local":
+      docroot => "/var/www",
+      redirect_source => "/mobile/presenter",
+      redirect_dest => "/presenter",
+      rewrites => [
+        {
+          comment      => 'Redirect / to /mobile',
+          rewrite_rule => ['^/$ /mobile/ [R=301,L]'],
+          rewrite_cond => ['%{REQUEST_URI} !^/mobile'],
+          rewrite_rule => ['^/(.+) /mobile/$1 [PT]']
+        },
+      ],
+      custom_fragment => 'JkMount /mobile* balancer'
+    }
 
-  apache::mod { "proxy": }
-  apache::mod { "proxy_ajp": }
-  apache::mod { "proxy_http": }
-  apache::mod { "jk": require => Package["libapache2-mod-jk"] }
+    apache::mod { "proxy": }
+    apache::mod { "proxy_ajp": }
+    apache::mod { "proxy_http": }
+    apache::mod { "jk": require => Package["libapache2-mod-jk"] }
 
-  file { "/etc/apache2/worker.properties":
-    source => "/etc/puppet/files/worker.properties"
+    file { "/etc/apache2/worker.properties":
+      source => "/etc/puppet/files/worker.properties"
+    }
+
+    # Tomcat
+    tomcat7::instance { "tomcat1":
+      tomcat_path => "/opt/tomcat1"
+    }
+    tomcat7::instance { "tomcat2":
+      tomcat_path => "/opt/tomcat2",
+      as_service => true
+    }
   }
 }
