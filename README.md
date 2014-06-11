@@ -4,7 +4,7 @@ This Vagrant configuration will provision a Debian development box with all tool
 
 ## Goal
 
-ARSnova Developers should not need to install any tools in order to get ARSnova up and running. Ideally, the only thing needed is an IDE. All other tools as well as the required workflows shall be handled by the Vagrant box.
+ARSnova developers should not need to install any tools in order to get ARSnova up and running. Ideally, the only thing needed is an IDE. All other tools as well as the required workflows shall be handled by the Vagrant box.
 
 ## Getting Started
 
@@ -42,7 +42,7 @@ The machine's default environment is for development. If you are happy with your
 
 	$ vagrant up production
 
-All commands remain the same, e.g. use `./start.sh` on the machine. But make sure you append the word `production` to all vagrant commands.
+All commands remain the same, e.g., use `./start.sh` on the machine. But make sure you append the word `production` to all vagrant commands.
 
 *Note:* In contrast to the development machine all changes have to be manually redeployed to Tomcat in the production environment. To do this, run `mvn tomcat7:deploy` in the `arsnova-war` directory.
 
@@ -88,7 +88,7 @@ The following ports are used on the host machine:
 
 ## Using the GUI
 
-If you wish to use a window manager, you first need to shutdown your machine in case it is currently running. Use `vagrant halt` for this purpose. Then, edit the `Vagrantfile` and activate the GUI option:
+If you wish to use the window manager [Xfce](http://www.xfce.org), you first need to shutdown your machine in case it is currently running. Use `vagrant halt` for this purpose. Then, edit the `Vagrantfile` and activate the GUI option:
 
 	config.vm.provider "virtualbox" do |vb|
 		vb.gui = true
@@ -102,10 +102,20 @@ Once you restart the VM, log in with Vagrant's default credentials: user and pas
 
 Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) document.
 
+## Troubleshooting
+
+### I'm missing some files.
+
+If files like `start.sh` are missing, it is most likely that the provisioning has failed. Run `vagrant provision` which will make sure all packages and scripts are present. Also, you could just destroy the machine (`vagrant destroy`) to return to a blank slate.
+
+### Script `start.sh` never returns.
+
+The first time this script runs it will take quite some time because Maven has to download a lot of dependencies. To see if an error occurs, run `./start.sh -v` which displays Ant's and Maven's verbose outputs.
+
 ## Is it any good?
 
 Yes.
 
 ## Credits
 
-ARSnova is powered by Technische Hochschule Mittelhessen - University of Applied Sciences.
+ARSnova is powered by THM - Technische Hochschule Mittelhessen - University of Applied Sciences.
