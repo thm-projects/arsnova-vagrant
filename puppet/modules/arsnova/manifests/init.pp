@@ -87,10 +87,9 @@ class arsnova {
   exec { "initialize-couchdb":
     cwd => "$base_path/arsnova-setuptool",
     # CouchDB uses delayed commits, so wait a few seconds to ensure documents are written to disk
-    command => "/usr/bin/python tool.py && sleep 5",
-    require => [ Git::Repo["arsnova-setuptool"], File["/etc/arsnova/arsnova.properties"] ],
-    user => "vagrant",
-    before => Couchdb["couchdb-host-access"]
+    command => "/bin/sleep 5 && /usr/bin/python tool.py && /bin/sleep 5",
+    require => [ Git::Repo["arsnova-setuptool"], File["/etc/arsnova/arsnova.properties"], Couchdb["couchdb-host-access"] ],
+    user => "vagrant"
   }
 
   file { "/home/vagrant/start.sh":
