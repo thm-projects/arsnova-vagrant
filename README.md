@@ -102,6 +102,16 @@ Once you restart the VM, log in with Vagrant's default credentials: user and pas
 
 Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) document.
 
+## Troubleshooting
+
+### I'm missing some files.
+
+If files like `start.sh` are missing, it is most likely that the provisioning has failed. Run `vagrant provision` which will make sure all packages and scripts are present. Also, you could just destroy the machine (`vagrant destroy`) to return to a blank slate.
+
+### Script `start.sh` never returns.
+
+The first time this script runs it will take quite some time because Maven has to download a lot of dependencies. To see if an error occurs, run `./start.sh -v` which displays Ant's and Maven's verbose outputs.
+
 ## Is it any good?
 
 Yes.
