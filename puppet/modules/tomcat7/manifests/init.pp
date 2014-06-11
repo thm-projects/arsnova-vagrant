@@ -31,13 +31,6 @@ class tomcat7 (
 		group => "vagrant"
 	}
 
-	file_line { "tomcat-root-context":
-		path => "$tomcat_path/conf/server.xml",
-		match => "\\s*</Host>",
-		line => "<Context path=\"\" docBase=\"$tomcat_root_context\">\n<WatchedResource>WEB-INF/web.xml</WatchedResource>\n</Context>\n</Host>",
-		require => File["$tomcat_path"]
-	}
-
 	file { "/home/vagrant/.m2":
 		ensure => "directory",
 		require => Package["maven"],
