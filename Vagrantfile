@@ -37,7 +37,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder "./puppet/files", "/etc/puppet/files"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -120,7 +120,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.manifests_path = pp_manifest_path
       puppet.manifest_file = pp_manifest_file
       puppet.module_path = pp_module_path
-      puppet.options = "--environment=development"
+      puppet.options = ["--environment=development"]
     end
     dev.vm.network "forwarded_port", guest: 8080, host: 8080
     # socket.io port
@@ -134,7 +134,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.manifests_path = pp_manifest_path
       puppet.manifest_file = pp_manifest_file
       puppet.module_path = pp_module_path
-      puppet.options = "--environment=production"
+      puppet.options = ["--environment=production"]
     end
     production.vm.network "forwarded_port", guest: 8080, host: 8081
     # socket.io port
