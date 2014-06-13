@@ -28,3 +28,8 @@ file_line { "pam":
   match => "session\\s*required\\s*pam_unix.so",
   line => "session required pam_unix.so\nsession optional pam_loginuid.so"
 }
+# Strangely, bash is not the default...
+user { "vagrant":
+  ensure => present,
+  shell  => "/bin/bash"
+}
