@@ -136,7 +136,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.module_path = pp_module_path
       puppet.options = ["--environment=production"]
     end
-    production.vm.network "forwarded_port", guest: 8080, host: 8081
+    production.vm.network "forwarded_port", guest: 80, host: 8081
     # socket.io port
     production.vm.network "forwarded_port", guest: 10444, host: 10444
     # CouchDB

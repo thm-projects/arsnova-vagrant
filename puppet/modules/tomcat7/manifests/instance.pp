@@ -36,7 +36,18 @@ define tomcat7::instance(
 
 	file { "$tomcat_path/conf/tomcat-users.xml":
 		content => template("tomcat7/tomcat-users.xml.erb"),
-		require => File["$tomcat_path"],
+		require => File["$tomcat_path/conf"],
+		mode => "600",
+		owner => "tomcat",
+		group => "tomcat"
+	}
+
+	# Copy Tomcat configuration
+	file { "$tomcat_path/conf":
+		source => "/etc/puppet/files/tomcat/conf",
+		recurse => true,
+		require => Exec["tomcat7-unpack-${name}"],
+		mode => "600",
 		owner => "tomcat",
 		group => "tomcat"
 	}
@@ -45,15 +56,16 @@ define tomcat7::instance(
 		file{"/etc/init.d/${name}":
 			ensure => "file",
 			content => template("tomcat7/tomcat.erb"),
-			mode => "755"
+			mode => "755",
+			require => File["$tomcat_path/conf/tomcat-users.xml"]
 		}
-	}
-	if $as_service {
+		->
 		service{"${name}":
 			ensure => "running",
+			enable => true,
+			hasrestart => true,
 			hasstatus => false, # init script does not return the right exit code!
-			pattern => "org\\.apache\\.catalina\\.startup\\.Bootstrap",
-			require => File["/etc/init.d/${name}"]
+			pattern => "org\\.apache\\.catalina\\.startup\\.Bootstrap"
 		}
 	}
 }
