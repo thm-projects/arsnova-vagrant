@@ -44,9 +44,6 @@ cd "$ARSNOVA_SERVER"
 eval "mvn -q jetty:run -Dmobile.path=<%= @mobile_target %> $OUTPUT_REDIRECT &"
 PID_SERVER=$!
 <% else %>
-cd "$ARSNOVA_TOMCAT"
-eval "./catalina.sh start $OUTPUT_REDIRECT"
-PID_SERVER=$!
 cd "$ARSNOVA_SERVER"
 eval "mvn -q tomcat7:deploy -Dmobile.path=<%= @mobile_target %> $OUTPUT_REDIRECT &"
 <% end %>
@@ -57,13 +54,18 @@ echo "$PID_LISTEN" > "$PID_FILE_LISTEN"
 echo "$PID_MOBILE" > "$PID_FILE_MOBILE"
 echo "$PID_SERVER" > "$PID_FILE_SERVER"
 
+<% if @environment == "development" %>
+ARSNOVA_URL="http://localhost:8080/index.html"
+<% else %>
+ARSNOVA_URL="http://localhost/mobile/index.html"
+<% end %>
 RESPONSE_CODE=0
 while [ "$RESPONSE_CODE" -ne 200 ]
 do
   # courtesy of http://superuser.com/a/442395
-  RESPONSE_CODE=`curl -s -o /dev/null -I -w "%{http_code}" -m 5 http://localhost:8080/index.html`
+  RESPONSE_CODE=`curl -s -o /dev/null -I -w "%{http_code}" -m 5 "$ARSNOVA_URL"`
   sleep 5
   echo -e ".\c"
 done
 
-echo -e "\nARSnova is now ready @ http://localhost:8080/index.html"
+echo -e "\nARSnova is now ready @ $ARSNOVA_URL"

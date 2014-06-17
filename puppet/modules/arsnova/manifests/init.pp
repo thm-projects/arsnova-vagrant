@@ -115,4 +115,65 @@ class arsnova {
   class { "motd":
     template => "arsnova/motd.erb"
   }
+
+  if $environment == "production" {
+    package { "apache2": ensure => "latest" }
+    package { "libapache2-mod-jk":ensure => "latest" }
+
+    service { "apache2":
+      ensure => "running",
+      enable => "true",
+      require => Package["apache2"]
+    }
+
+    exec { "arsnova-apache-modules":
+      command => "/usr/sbin/a2enmod proxy proxy_ajp proxy_http headers jk status ssl mime rewrite",
+      require => [ Package["apache2"], Package["libapache2-mod-jk"] ],
+      notify => Service["apache2"]
+    }
+
+    file { "/etc/apache2/workers.properties":
+      source => "/etc/puppet/files/apache/workers.properties"
+    }
+
+    file { "/etc/apache2/mods-available/jk.conf":
+      source => "/etc/puppet/files/apache/jk.conf",
+      require => Exec["arsnova-apache-modules"]
+    }
+    ->
+    file { "/etc/apache2/mods-enabled/jk.conf":
+      ensure => "link",
+      target => "/etc/apache2/mods-available/jk.conf",
+      notify => Service["apache2"]
+    }
+
+    # Initialize Apache sites-enabled
+    file { "arsnova-sites-available":
+      path => "/etc/apache2/sites-enabled",
+      source => "/etc/puppet/files/apache/sites",
+      recurse => true,
+      require => Package["apache2"],
+      notify => Service["apache2"]
+    }
+
+    # Copy Apache configuration
+    file { "arsnova-apache-conf":
+      path => "/etc/apache2/apache2.conf",
+      source => "/etc/puppet/files/apache/apache2.conf",
+      notify => Service["apache2"]
+    }
+    file { "/etc/apache2/httpd.conf":
+      source => "/etc/puppet/files/apache/httpd.conf",
+      notify => Service["apache2"]
+    }
+
+    # Tomcat
+    tomcat7::instance { "tomcat1":
+      tomcat_path => "/opt/tomcat1"
+    }
+    tomcat7::instance { "tomcat2":
+      tomcat_path => "/opt/tomcat2",
+      as_service => true
+    }
+  }
 }

@@ -1,0 +1,51 @@
+<VirtualHost *:80>
+	ServerName arsnova.eu
+        ServerAlias www.arsnova.eu
+        ServerAdmin admin@ecollab.eu
+
+	<LocationMatch "\.(ico|jpg|jpeg|png|gif)$">
+		Header set Cache-Control "no-transform"
+	</LocationMatch>
+
+        Alias /manual /home/manual/public_html
+        <Directory /home/manual/public_html>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride None
+		Order allow,deny
+		Allow from all
+        </Directory>
+
+        DocumentRoot /var/www/arsnova
+        <Directory /var/www/arsnova/>
+                Options FollowSymLinks
+                AllowOverride FileInfo Limit
+        </Directory>
+
+	JkMount /mobile* balancer
+	JkMount /presenter* balancer
+	JkMount /wstest* balancer
+
+	RewriteEngine On
+	RewriteRule ^/$ /mobile/ [R=301,L]
+	RewriteCond %{REQUEST_URI} !^/blog
+	RewriteCond %{REQUEST_URI} !^/mobile
+	RewriteCond %{REQUEST_URI} !^/overlay
+	RewriteCond %{REQUEST_URI} !^/presenter
+	RewriteCond %{REQUEST_URI} !^/couchdb
+	RewriteCond %{REQUEST_URI} !^/manual
+	RewriteCond %{REQUEST_URI} !^/~manual
+	RewriteCond %{REQUEST_URI} !^/wstest
+	RewriteRule ^/(.+) /mobile/$1 [PT]
+	#RewriteRule ^/(.*) /mobile/$1 [PT]
+
+	# Workaround until backend redirection has been fixed
+	Redirect /mobile/presenter /presenter
+
+        ErrorLog ${APACHE_LOG_DIR}/arsnova-error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel warn
+
+        CustomLog ${APACHE_LOG_DIR}/arsnova-access.log combined
+</VirtualHost>

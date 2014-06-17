@@ -1,0 +1,11 @@
+#ServerName ecollab.eu
+
+NameVirtualHost *:80
+#NameVirtualHost *:443
+
+#SSLStrictSNIVHostCheck off
+
+<Directory />
+	Options FollowSymLinks
+	AllowOverride None
+</Directory>
