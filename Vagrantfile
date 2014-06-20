@@ -23,6 +23,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Manually do on command line:
   #    $ vagrant plugin install vagrant-aws
     config.vm.box = "dummy"
+  # install rvm per http://rvm.io/integration/vagrant
+    config.vm.provision :shell, :path => "install-rvm.sh",  :args => "stable"
+    config.vm.provision :shell, :path => "install-ruby.sh", :args => "1.9.3"
+    config.vm.provision :shell, :path => "install-ruby.sh", :args => "1.9.3 listen"
+    config.vm.provision :shell, :path => "install-puppet.sh"
   else
     config.vm.box = "fadenb/debian-wheezy-puppet3"
   end
