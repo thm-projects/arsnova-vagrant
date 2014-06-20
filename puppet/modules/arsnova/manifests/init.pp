@@ -45,22 +45,22 @@ class arsnova {
   git::repo { "arsnova-war":
     path => $server_path,
     source => "https://github.com/thm-projects/arsnova-war.git",
-    owner => "vagrant",
-    group => "vagrant"
+    owner => $git_owner,
+    group => $git_group 
   }
 
   git::repo { "arsnova-mobile":
     path => $mobile_path,
     source => "https://github.com/thm-projects/arsnova-mobile.git",
-    owner => "vagrant",
-    group => "vagrant"
+    owner => $git_owner,
+    group => $git_group 
   }
 
   git::repo { "arsnova-setuptool":
     path => "$base_path/arsnova-setuptool",
     source => "https://github.com/thm-projects/setuptool.git",
-    owner => "vagrant",
-    group => "vagrant"
+    owner => $git_owner,
+    group => $git_group 
   }
 
   file { "/etc/arsnova":
@@ -89,26 +89,26 @@ class arsnova {
     # CouchDB uses delayed commits, so wait a few seconds to ensure documents are written to disk
     command => "/bin/sleep 5 && /usr/bin/python tool.py && /bin/sleep 5",
     require => [ Git::Repo["arsnova-setuptool"], File["/etc/arsnova/arsnova.properties"], Couchdb["couchdb-host-access"] ],
-    user => "vagrant"
+    user => $git_owner 
   }
 
-  file { "/home/vagrant/start.sh":
-    owner => "vagrant",
-    group => "vagrant",
+  file { "/home/${git_owner}/start.sh":
+    owner => $git_owner,
+    group => $git_group,
     content => template("arsnova/start.sh.erb"),
     mode => "744"
   }
 
-  file { "/home/vagrant/stop.sh":
-    owner => "vagrant",
-    group => "vagrant",
+  file { "/home/${git_owner}/stop.sh":
+    owner => $git_owner,
+    group => $git_group,
     content => template("arsnova/stop.sh.erb"),
     mode => "744"
   }
 
-  file { "/home/vagrant/listen.rb":
-    owner => "vagrant",
-    group => "vagrant",
+  file { "/home/${git_owner}/listen.rb":
+    owner => $git_owner,
+    group => $git_group,
     content => template("arsnova/listen.rb.erb")
   }
 

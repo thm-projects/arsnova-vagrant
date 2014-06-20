@@ -3,6 +3,12 @@
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
+ssh_user  = "vagrant"
+ssh_group = "vagrant"
+
+def aws_build?
+  ENV['BUILD'] == "AWS"  
+end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # All Vagrant configuration is done here. The most common configuration
@@ -10,7 +16,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "fadenb/debian-wheezy-puppet3"
+  if aws_build? 
+    ssh_user = "ubuntu"
+    ssh_group = "ubuntu"
+  # See: https://github.com/mitchellh/vagrant-aws
+  # Manually do on command line:
+  #    $ vagrant plugin install vagrant-aws
+    config.vm.box = "dummy"
+  else
+    config.vm.box = "fadenb/debian-wheezy-puppet3"
+  end
+  config.ssh.username = ssh_user
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -120,7 +136,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.manifests_path = pp_manifest_path
       puppet.manifest_file = pp_manifest_file
       puppet.module_path = pp_module_path
-      puppet.options = ["--environment=development"]
+      puppet.options = "--environment=development --verbose"
+      puppet.facter = {
+        "git_owner" => ssh_user, 
+        "git_group" => ssh_group 
+        
+      }
     end
     dev.vm.network "forwarded_port", guest: 8080, host: 8080
     # socket.io port
