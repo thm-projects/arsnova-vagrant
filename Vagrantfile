@@ -121,6 +121,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.manifest_file = pp_manifest_file
       puppet.module_path = pp_module_path
       puppet.options = ["--environment=development"]
+      puppet.facter = {
+        "vagrant_owner" => "vagrant",
+        "vagrant_group" => "vagrant",
+        "is_32bit" => true
+      }
     end
     dev.vm.network "forwarded_port", guest: 8080, host: 8080
     # socket.io port
@@ -135,6 +140,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.manifest_file = pp_manifest_file
       puppet.module_path = pp_module_path
       puppet.options = ["--environment=production"]
+      puppet.facter = {
+        "vagrant_owner" => "vagrant",
+        "vagrant_group" => "vagrant",
+        "is_32bit" => true
+      }
     end
     production.vm.network "forwarded_port", guest: 80, host: 8081
     # socket.io port

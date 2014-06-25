@@ -15,7 +15,11 @@
 # customize values for your needs
 
 #JAVA_HOME="/usr/lib/jvm/java-6-openjdk"
+<% if @is_32bit %>
+JAVA_HOME="/usr/lib/jvm/java-1.7.0-openjdk-i386"
+<% else %>
 JAVA_HOME="/usr/lib/jvm/java-1.7.0-openjdk-amd64"
+<% end %>
 #JAVA_OPTS="-Xms2048m -Xmx4096m"
 TOMCAT_USER=tomcat;
 TOMCAT_PATH=<%= @tomcat_path %>;
