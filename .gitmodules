@@ -7,3 +7,9 @@
 [submodule "puppet/modules/motd"]
 	path = puppet/modules/motd
 	url = https://github.com/saz/puppet-motd.git
+[submodule "puppet/modules/apache"]
+	path = puppet/modules/apache
+	url = https://github.com/puppetlabs/puppetlabs-apache.git
+[submodule "puppet/modules/concat"]
+	path = puppet/modules/concat
+	url = https://github.com/puppetlabs/puppetlabs-concat

@@ -34,7 +34,9 @@ function kill_running_processes {
 
 kill_previous_instances $PID_FILE_LISTEN
 kill_previous_instances $PID_FILE_MOBILE
+<%if @environment == "development" %>
 kill_previous_instances $PID_FILE_SERVER
+<% end %>
 
 # ARSnova mobile spawns processes which we need to stop as well
 SENCHA_PID=`jps | grep "sencha.jar" | awk '{print $1}'`
