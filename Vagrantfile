@@ -123,8 +123,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.options = ["--environment=development"]
       puppet.facter = {
         "vagrant_owner" => "vagrant",
-        "vagrant_group" => "vagrant",
-        "is_32bit" => true
+        "vagrant_group" => "vagrant"
       }
     end
     dev.vm.network "forwarded_port", guest: 8080, host: 8080
@@ -142,8 +141,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.options = ["--environment=production"]
       puppet.facter = {
         "vagrant_owner" => "vagrant",
-        "vagrant_group" => "vagrant",
-        "is_32bit" => true
+        "vagrant_group" => "vagrant"
       }
     end
     production.vm.network "forwarded_port", guest: 80, host: 8081
