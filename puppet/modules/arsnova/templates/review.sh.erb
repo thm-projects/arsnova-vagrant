@@ -6,6 +6,18 @@ Options: <inputfile>
 
 Instructions:
 
+<%- if @environment == "production" -%>
+  1. Apply the database you are going to review: $ $0 <inputfile>
+  2. Restart Tomcat: $ sudo /etc/init.d/tomcat2 restart
+  3. Verify results
+  4. Repeat
+  5. To clean up, move the file "old.arsnova.properties"
+    back to its original location:
+    $ sudo mv old.arsnova.properties /etc/arsnova/arsnova.properties
+    (or just destroy and recreate this VM)
+  6. Restart Tomcat
+  7. You may delete all other temp files: $ rm old.*
+<%- else -%>
   1. Stop ARSnova: $ ./stop.sh
   2. Apply the database you are going to review: $ $0 <inputfile>
   3. Start ARSnova: $ ./start.sh
@@ -17,6 +29,7 @@ Instructions:
      $ sudo mv old.arsnova.properties /etc/arsnova/arsnova.properties
      (or just destroy and recreate this VM)
   7. You may delete all other temp files: $ rm old.*
+<%- end -%>
 SHOW_OPTIONS
 }
 
