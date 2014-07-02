@@ -199,17 +199,17 @@ class arsnova {
       name => "ARSnova-mobile",
       config_file => "/etc/puppet/files/jenkins/arsnova-mobile.config.xml"
     }
-    ->
+
     jenkins::job { "arsnova-jenkins-job-war":
       name => "ARSnova-war",
       config_file => "/etc/puppet/files/jenkins/arsnova-war.config.xml"
     }
-    ->
+
     jenkins::job { "arsnova-jenkins-job-deploy":
       name => "ARSnova.deploy",
       config_file => "/etc/puppet/files/jenkins/arsnova-deploy.config.xml"
     }
-    ->
+
     jenkins::job { "arsnova-jenkins-job-arsnova-war-sonar":
       name => "ARSnova-war.sonar",
       config_file => "/etc/puppet/files/jenkins/arsnova-war-sonar.config.xml"
