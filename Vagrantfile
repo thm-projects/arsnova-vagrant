@@ -131,6 +131,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     dev.vm.network "forwarded_port", guest: 10443, host: 10443
     # CouchDB
     dev.vm.network "forwarded_port", guest: 5984, host: 5984
+    # SonarQube
+    dev.vm.network "forwarded_port", guest: 9000, host: 9000
+    # Jenkins
+    dev.vm.network "forwarded_port", guest: 9090, host: 9090
   end
   config.vm.define "production", autostart: false do |production|
     production.vm.hostname = "arsnova-production"
