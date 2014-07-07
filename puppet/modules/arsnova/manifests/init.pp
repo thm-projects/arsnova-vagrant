@@ -117,7 +117,8 @@ class arsnova {
 
   if $environment == "production" {
     package { "apache2": ensure => "latest" }
-    package { "libapache2-mod-jk":ensure => "latest" }
+    package { "libapache2-mod-jk": ensure => "latest" }
+    package { "openjdk-7-jdk": ensure => "latest" }
 
     service { "apache2":
       ensure => "running",
@@ -215,18 +216,36 @@ class arsnova {
       config_file => "/etc/puppet/files/jenkins/arsnova-war-sonar.config.xml"
     }
 
-    case $::osfamily {
-      # Jenkins might be installed to different paths depending on OS
-      "Debian": {
-        file { "/var/lib/jenkins/hudson.tasks.Maven.xml":
-          require => Class["jenkins::package"],
-          source => "/etc/puppet/files/jenkins/hudson.tasks.Maven.xml",
-          notify => Service["jenkins"]
-        }
-      }
-      default: {
-        fail("Unsupported OS family: ${::osfamily}")
-      }
+    # Jenkins might be installed to different paths depending on OS
+    $jenkins_home = $::osfamily ? {
+      "Debian" => "/var/lib/jenkins",
+      default => fail("Unsupported OS family: ${::osfamily}")
     }
+
+    file { "${jenkins_home}/hudson.tasks.Maven.xml":
+      require => Class["jenkins::package"],
+      source => "/etc/puppet/files/jenkins/hudson.tasks.Maven.xml",
+      notify => Service["jenkins"]
+    }
+
+    file { "${jenkins_home}/hudson.plugins.sonar.SonarPublisher.xml":
+      require => Class["jenkins::package"],
+      source => "/etc/puppet/files/jenkins/hudson.plugins.sonar.SonarPublisher.xml",
+      notify => Service["jenkins"]
+    }
+
+    file { ["${jenkins_home}/.sencha", "${jenkins_home}/.sencha/cmd"]:
+      ensure => "directory",
+      require => [Group["jenkins"], User["jenkins"]]
+    }
+    ->
+    file { "${jenkins_home}/.sencha/cmd/sencha.cfg":
+      content => 'repo.local.dir=${home.dir}/../repo',
+    }
+    ->
+    exec { "jenkins-sencha-permissions":
+      command => "/bin/chown -R jenkins:jenkins ${jenkins_home}/.sencha"
+    }
+
   }
 }

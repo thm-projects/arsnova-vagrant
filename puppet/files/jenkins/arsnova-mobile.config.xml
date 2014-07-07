@@ -25,8 +25,7 @@
     <submoduleCfg class="list"/>
     <extensions/>
   </scm>
-  <assignedNode>mac</assignedNode>
-  <canRoam>false</canRoam>
+  <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
@@ -58,12 +57,6 @@
   <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
   <reporters/>
   <publishers>
-    <hudson.maven.RedeployPublisher>
-      <id>deployment</id>
-      <url>https://maven.mni.thm.de/content/repositories/snapshots/</url>
-      <uniqueVersion>true</uniqueVersion>
-      <evenIfUnstable>false</evenIfUnstable>
-    </hudson.maven.RedeployPublisher>
     <hudson.tasks.BuildTrigger>
       <childProjects>ARSnova-war</childProjects>
       <threshold>
