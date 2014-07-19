@@ -192,7 +192,11 @@ class arsnova {
         "disk-usage" => {},
         "build-blocker-plugin" => {},
         "log-parser" => {},
-        "sonar" => {}
+        "sonar" => {},
+        "dashboard-view" => {},
+        "jquery" => {},
+        "parameterized-trigger" => {},
+        "build-pipeline-plugin" => {}
       }
     }
 
