@@ -13,3 +13,18 @@
 [submodule "puppet/modules/concat"]
 	path = puppet/modules/concat
 	url = https://github.com/puppetlabs/puppetlabs-concat
+[submodule "puppet/modules/sonarqube"]
+	path = puppet/modules/sonarqube
+	url = https://github.com/maestrodev/puppet-sonarqube.git
+[submodule "puppet/modules/wget"]
+	path = puppet/modules/wget
+	url = https://github.com/maestrodev/puppet-wget.git
+[submodule "puppet/modules/jenkins"]
+	path = puppet/modules/jenkins
+	url = https://github.com/jenkinsci/puppet-jenkins.git
+[submodule "puppet/modules/java"]
+	path = puppet/modules/java
+	url = https://github.com/puppetlabs/puppetlabs-java.git
+[submodule "puppet/modules/apt"]
+	path = puppet/modules/apt
+	url = https://github.com/puppetlabs/puppetlabs-apt.git
