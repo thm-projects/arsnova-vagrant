@@ -56,14 +56,16 @@ echo "$PID_SERVER" > "$PID_FILE_SERVER"
 
 <% if @environment == "development" %>
 ARSNOVA_URL="http://localhost:8080/index.html"
+ARSNOVA_INTERNAL_URL="$ARSNOVA_URL"
 <% else %>
-ARSNOVA_URL="http://localhost/mobile/index.html"
+ARSNOVA_URL="http://localhost:8081/mobile/index.html"
+ARSNOVA_INTERNAL_URL="http://localhost/mobile/index.html"
 <% end %>
 RESPONSE_CODE=0
 while [ "$RESPONSE_CODE" -ne 200 ]
 do
   # courtesy of http://superuser.com/a/442395
-  RESPONSE_CODE=`curl -s -o /dev/null -I -w "%{http_code}" -m 5 "$ARSNOVA_URL"`
+  RESPONSE_CODE=`curl -s -o /dev/null -I -w "%{http_code}" -m 5 "$ARSNOVA_INTERNAL_URL"`
   sleep 5
   echo -e ".\c"
 done

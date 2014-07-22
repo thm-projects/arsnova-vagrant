@@ -9,6 +9,13 @@
 * To stop ARSnova:
 *
 *   $ ./stop.sh
+<%- if @environment == "development" -%>
+*
+* The following services are available:
+*
+* - Jenkins: http://localhost:9090
+* - SonarQube: http://localhost:9000
+<%- end -%>
 *
 * Please send feedback to Christoph Thelen <christoph.thelen@mni.thm.de>
 *

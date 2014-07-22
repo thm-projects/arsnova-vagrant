@@ -16,6 +16,10 @@ Alternatively, initialize and update the submodules after cloning:
 
 	git submodule update --init --recursive
 
+Next, install the required Vagrant plugin [vagrant-hosts](https://github.com/adrienthebo/vagrant-hosts), which sets up a provisioner for host names:
+
+	vagrant plugin install vagrant-hosts
+
 ## Basic Usage
 
 Start the machine with the following command:
