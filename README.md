@@ -83,6 +83,8 @@ The following ports are used on the host machine:
 - 8080 (Web)
 - 10443 (socket.io)
 - 5984 (CouchDB)
+- 9000 (SonarQube)
+- 9090 (Jenkins)
 
 ### Production
 
