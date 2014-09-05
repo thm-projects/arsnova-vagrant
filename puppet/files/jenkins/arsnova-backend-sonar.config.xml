@@ -10,7 +10,7 @@
     <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.23"/>
   </properties>
   <scm class="hudson.plugins.cloneworkspace.CloneWorkspaceSCM" plugin="clone-workspace-scm@0.6">
-    <parentJobName>ARSnova-war</parentJobName>
+    <parentJobName>ARSnova-Backend</parentJobName>
     <criteria>Successful</criteria>
   </scm>
   <assignedNode>master</assignedNode>
@@ -23,7 +23,7 @@
   <concurrentBuild>false</concurrentBuild>
   <rootModule>
     <groupId>de.thm.arsnova</groupId>
-    <artifactId>arsnova-war</artifactId>
+    <artifactId>arsnova-backend</artifactId>
   </rootModule>
   <mavenName>maven2</mavenName>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>

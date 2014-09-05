@@ -58,7 +58,7 @@
   <reporters/>
   <publishers>
     <hudson.tasks.BuildTrigger>
-      <childProjects>ARSnova-war</childProjects>
+      <childProjects>ARSnova-Backend</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>

@@ -16,7 +16,7 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>/vagrant/arsnova-war</url>
+        <url>/vagrant/arsnova-backend</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -37,7 +37,7 @@
   <triggers>
     <jenkins.triggers.ReverseBuildTrigger>
       <spec></spec>
-      <upstreamProjects>ARSnova-mobile</upstreamProjects>
+      <upstreamProjects>ARSnova-Mobile</upstreamProjects>
     </jenkins.triggers.ReverseBuildTrigger>
     <hudson.triggers.SCMTrigger>
       <spec>H/5 * * * *</spec>
@@ -47,7 +47,7 @@
   <concurrentBuild>false</concurrentBuild>
   <rootModule>
     <groupId>de.thm.arsnova</groupId>
-    <artifactId>arsnova-war</artifactId>
+    <artifactId>arsnova-backend</artifactId>
   </rootModule>
   <goals>clean install site:site -U</goals>
   <mavenName>maven3.2</mavenName>
@@ -77,7 +77,7 @@
       <parsingRulesPath>/var/lib/jenkins/logparser_defaultrules.txt</parsingRulesPath>
     </hudson.plugins.logparser.LogParserPublisher>
     <hudson.tasks.BuildTrigger>
-      <childProjects>ARSnova.deploy, ARSnova-war.sonar</childProjects>
+      <childProjects>ARSnova.deploy, ARSnova-Backend.sonar</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>

@@ -6,7 +6,7 @@ class arsnova {
   }
 
   $base_path = "/vagrant"
-  $server_path = "$base_path/arsnova-war"
+  $server_path = "$base_path/arsnova-backend"
   $mobile_path = "$base_path/arsnova-mobile"
   $server_pid = "server.pid"
   $mobile_pid = "mobile.pid"
@@ -41,9 +41,9 @@ class arsnova {
     require => Package["couchdb"]
   }
 
-  git::repo { "arsnova-war":
+  git::repo { "arsnova-backend":
     path => $server_path,
-    source => "https://github.com/thm-projects/arsnova-war.git",
+    source => "https://github.com/thm-projects/arsnova-backend.git",
     owner => "vagrant",
     group => "vagrant"
   }
@@ -57,7 +57,7 @@ class arsnova {
 
   git::repo { "arsnova-setuptool":
     path => "$base_path/arsnova-setuptool",
-    source => "https://github.com/thm-projects/setuptool.git",
+    source => "https://github.com/thm-projects/arsnova-setuptool.git",
     owner => "vagrant",
     group => "vagrant"
   }
@@ -69,7 +69,7 @@ class arsnova {
   file { "/etc/arsnova/arsnova.properties":
     source => "$server_path/src/main/webapp/arsnova.properties.example",
     ensure => "present",
-    require => [ File["/etc/arsnova"], Git::Repo["arsnova-war"] ]
+    require => [ File["/etc/arsnova"], Git::Repo["arsnova-backend"] ]
   }
 
   socketio { "socketio-config":
@@ -201,13 +201,13 @@ class arsnova {
     }
 
     jenkins::job { "arsnova-jenkins-job-mobile":
-      name => "ARSnova-mobile",
+      name => "ARSnova-Mobile",
       config_file => "/etc/puppet/files/jenkins/arsnova-mobile.config.xml"
     }
 
-    jenkins::job { "arsnova-jenkins-job-war":
-      name => "ARSnova-war",
-      config_file => "/etc/puppet/files/jenkins/arsnova-war.config.xml"
+    jenkins::job { "arsnova-jenkins-job-backend":
+      name => "ARSnova-Backend",
+      config_file => "/etc/puppet/files/jenkins/arsnova-backend.config.xml"
     }
 
     jenkins::job { "arsnova-jenkins-job-deploy":
@@ -215,9 +215,9 @@ class arsnova {
       config_file => "/etc/puppet/files/jenkins/arsnova-deploy.config.xml"
     }
 
-    jenkins::job { "arsnova-jenkins-job-arsnova-war-sonar":
-      name => "ARSnova-war.sonar",
-      config_file => "/etc/puppet/files/jenkins/arsnova-war-sonar.config.xml"
+    jenkins::job { "arsnova-jenkins-job-arsnova-backend-sonar":
+      name => "ARSnova-Backend.sonar",
+      config_file => "/etc/puppet/files/jenkins/arsnova-backend-sonar.config.xml"
     }
 
     # Jenkins might be installed to different paths depending on OS
