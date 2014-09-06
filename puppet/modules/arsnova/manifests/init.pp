@@ -67,15 +67,15 @@ class arsnova {
   }
 
   file { "/etc/arsnova/arsnova.properties":
-    source => "$server_path/src/main/webapp/arsnova.properties.example",
+    source => "$server_path/src/main/resources/arsnova.properties.example",
     ensure => "present",
     require => [ File["/etc/arsnova"], Git::Repo["arsnova-backend"] ]
   }
 
-  socketio { "socketio-config":
+  config { "arsnova-config":
     file => "/etc/arsnova/arsnova.properties",
-    ip => $socketio_ip,
-    port => $socketio_port,
+    sio_ip => $socketio_ip,
+    sio_port => $socketio_port,
     require => File["/etc/arsnova/arsnova.properties"]
   }
 

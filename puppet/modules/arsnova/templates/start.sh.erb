@@ -54,20 +54,22 @@ echo "$PID_LISTEN" > "$PID_FILE_LISTEN"
 echo "$PID_MOBILE" > "$PID_FILE_MOBILE"
 echo "$PID_SERVER" > "$PID_FILE_SERVER"
 
+ARSNOVA_WEB_PATH="/"
+ARSNOVA_CHECK_PATH="/arsnova-config"
 <% if @environment == "development" %>
-ARSNOVA_URL="http://localhost:8080/index.html"
+ARSNOVA_URL="http://localhost:8080"
 ARSNOVA_INTERNAL_URL="$ARSNOVA_URL"
 <% else %>
-ARSNOVA_URL="http://localhost:8081/mobile/index.html"
-ARSNOVA_INTERNAL_URL="http://localhost/mobile/index.html"
+ARSNOVA_URL="http://localhost:8081"
+ARSNOVA_INTERNAL_URL="http://localhost"
 <% end %>
 RESPONSE_CODE=0
 while [ "$RESPONSE_CODE" -ne 200 ]
 do
   # courtesy of http://superuser.com/a/442395
-  RESPONSE_CODE=`curl -s -o /dev/null -I -w "%{http_code}" -m 5 "$ARSNOVA_INTERNAL_URL"`
+  RESPONSE_CODE=`curl -s -o /dev/null -i -w "%{http_code}" -m 5 "$ARSNOVA_INTERNAL_URL$ARSNOVA_CHECK_PATH"`
   sleep 5
   echo -e ".\c"
 done
 
-echo -e "\nARSnova is now ready @ $ARSNOVA_URL"
+echo -e "\nARSnova is now ready @ $ARSNOVA_URL$ARSNOVA_WEB_PATH"
