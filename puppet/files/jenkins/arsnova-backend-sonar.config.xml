@@ -18,7 +18,6 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <jdk>java7</jdk>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <rootModule>

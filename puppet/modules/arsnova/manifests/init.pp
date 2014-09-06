@@ -205,17 +205,22 @@ class arsnova {
       config_file => "/etc/puppet/files/jenkins/arsnova-mobile.config.xml"
     }
 
+    jenkins::job { "arsnova-jenkins-job-mobile-deploy":
+      name => "ARSnova-Mobile.deploy",
+      config_file => "/etc/puppet/files/jenkins/arsnova-mobile-deploy.config.xml"
+    }
+
     jenkins::job { "arsnova-jenkins-job-backend":
       name => "ARSnova-Backend",
       config_file => "/etc/puppet/files/jenkins/arsnova-backend.config.xml"
     }
 
-    jenkins::job { "arsnova-jenkins-job-deploy":
-      name => "ARSnova.deploy",
-      config_file => "/etc/puppet/files/jenkins/arsnova-deploy.config.xml"
+    jenkins::job { "arsnova-jenkins-job-backend-deploy":
+      name => "ARSnova-Backend.deploy",
+      config_file => "/etc/puppet/files/jenkins/arsnova-backend-deploy.config.xml"
     }
 
-    jenkins::job { "arsnova-jenkins-job-arsnova-backend-sonar":
+    jenkins::job { "arsnova-jenkins-job-backend-sonar":
       name => "ARSnova-Backend.sonar",
       config_file => "/etc/puppet/files/jenkins/arsnova-backend-sonar.config.xml"
     }
