@@ -8,6 +8,7 @@ class arsnova {
   $base_path = "/vagrant"
   $server_path = "$base_path/arsnova-war"
   $mobile_path = "$base_path/arsnova-mobile"
+  $presenter_path = "$base_path/arsnova-presenter"
   $server_pid = "server.pid"
   $mobile_pid = "mobile.pid"
   $listen_pid = "listen.pid"
@@ -51,6 +52,13 @@ class arsnova {
   git::repo { "arsnova-mobile":
     path => $mobile_path,
     source => "https://github.com/thm-projects/arsnova-mobile.git",
+    owner => "vagrant",
+    group => "vagrant"
+  }
+
+  git::repo { "arsnova-presenter":
+    path => $presenter_path,
+    source => "https://github.com/thm-projects/arsnova-presenter.git",
     owner => "vagrant",
     group => "vagrant"
   }
