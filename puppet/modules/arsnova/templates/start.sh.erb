@@ -21,6 +21,7 @@ ARSNOVA_TOMCAT="<%= @deploy_path %>"
 <% end %>
 ARSNOVA_SERVER="<%= @server_path %>"
 ARSNOVA_MOBILE="<%= @mobile_path %>"
+ARSNOVA_PRESENTER="<%= @presenter_path %>"
 
 PID_FILE_LISTEN="<%= @listen_pid %>"
 PID_FILE_MOBILE="<%= @mobile_pid %>"
@@ -29,6 +30,7 @@ PID_FILE_SERVER="<%= @server_pid %>"
 eval "./stop.sh $VERBOSE $OUTPUT_REDIRECT"
 
 PID_MOBILE=0
+PID_PRESENTER=0
 PID_SERVER=0
 PID_LISTEN=0
 
@@ -38,6 +40,14 @@ PID_LISTEN=$!
 eval "ant -quiet sencha:build:<%= @sencha_env %> $OUTPUT_REDIRECT"
 eval "ant -quiet sencha:app:watch -Denvironment=<%= @sencha_env %> $OUTPUT_REDIRECT &"
 PID_MOBILE=$!
+
+cd "$ARSNOVA_PRESENTER"
+<% if @environment == "development" %>
+eval "mvn -q clean prepare-package -Denv=dev $OUTPUT_REDIRECT &"
+PID_PRESENTER=$!
+<% else %>
+eval "mvn -q clean package -Denv=prod $OUTPUT_REDIRECT"
+<% end %>
 
 <% if @environment == "development" %>
 cd "$ARSNOVA_SERVER"
