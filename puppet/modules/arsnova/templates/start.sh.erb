@@ -55,7 +55,7 @@ echo "$PID_MOBILE" > "$PID_FILE_MOBILE"
 echo "$PID_SERVER" > "$PID_FILE_SERVER"
 
 <% if @environment == "development" %>
-ARSNOVA_URL="http://localhost:8080/index.html"
+ARSNOVA_URL="http://localhost:8080/mobile/"
 ARSNOVA_INTERNAL_URL="$ARSNOVA_URL"
 <% else %>
 ARSNOVA_URL="http://localhost:8081/mobile/index.html"

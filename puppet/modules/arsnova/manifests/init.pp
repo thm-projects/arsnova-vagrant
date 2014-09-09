@@ -67,7 +67,7 @@ class arsnova {
   }
 
   file { "/etc/arsnova/arsnova.properties":
-    source => "$server_path/src/main/webapp/arsnova.properties.example",
+    source => "$server_path/src/main/resources/arsnova.properties.example",
     ensure => "present",
     require => [ File["/etc/arsnova"], Git::Repo["arsnova-war"] ]
   }
