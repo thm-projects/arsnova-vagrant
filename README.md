@@ -48,19 +48,19 @@ The machine's default environment is for development. If you are happy with your
 
 All commands remain the same, e.g., use `./start.sh` on the machine. But make sure you append the word `production` to all vagrant commands.
 
-*Note:* In contrast to the development machine all changes have to be manually redeployed to Tomcat in the production environment. To do this, run `mvn tomcat7:deploy` in the `arsnova-war` directory.
+*Note:* In contrast to the development machine all changes have to be manually redeployed to Tomcat in the production environment. To do this, run `mvn tomcat7:deploy` in the `arsnova-backend` directory.
 
 ## ARSnova repositories
 
 After the first boot of your VM, you will find the following repositories inside this project's root folder:
 
 - arsnova-mobile
-- arsnova-war
+- arsnova-backend
 - arsnova-setuptool
 
 The ARSnova repositories are connected to your host machine via shared folders. This means you can use your local IDE of choice to work on the code, while the complete build process is handled by the Vagrant VM.
 
-Whenever you make changes to the `arsnova-mobile` repository, a new build is triggered automatically after a few seconds, so that you can immediately see the result of your changes. Changes to `arsnova-war` have to be compiled manually.
+Whenever you make changes to the `arsnova-mobile` repository, a new build is triggered automatically after a few seconds, so that you can immediately see the result of your changes. Changes to `arsnova-backend` have to be compiled manually.
 
 ## Setting up your Git
 
@@ -83,6 +83,8 @@ The following ports are used on the host machine:
 - 8080 (Web)
 - 10443 (socket.io)
 - 5984 (CouchDB)
+- 9000 (SonarQube)
+- 9090 (Jenkins)
 
 ### Production
 
