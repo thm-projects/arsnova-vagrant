@@ -27,7 +27,7 @@
         <passwordScrambled>YXJzbm92YQ==</passwordScrambled>
         <url>http://arsnova-production.internal:8080/</url>
       </adapter>
-      <contextPath>/backend</contextPath>
+      <contextPath>/api</contextPath>
       <war>**/*.war</war>
       <onFailure>false</onFailure>
     </hudson.plugins.deploy.DeployPublisher>
