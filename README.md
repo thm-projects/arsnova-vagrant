@@ -106,7 +106,7 @@ Once you restart the VM, log in with Vagrant's default credentials: user and pas
 
 ## Contributing
 
-Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) document.
+Please refer to the [CONTRIBUTING.md](https://github.com/thm-projects/arsnova-vagrant/blob/master/CONTRIBUTING.md) document.
 
 ## Troubleshooting
 
