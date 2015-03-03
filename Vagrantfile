@@ -48,7 +48,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   vb.gui = true
   #
      # Use VBoxManage to customize the VM. For example to change memory:
-     vb.customize ["modifyvm", :id, "--memory", "1024"]
+     vb.customize ["modifyvm", :id, "--memory", "2048"]
    end
   #
   # View the documentation for the provider you're using for more
@@ -132,7 +132,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       }
     end
     dev.vm.network :private_network, :ip => '10.20.1.2'
-    dev.vm.network "forwarded_port", guest: 8080, host: 8080
+    dev.vm.network "forwarded_port", guest: 8081, host: 8080
     # socket.io port
     dev.vm.network "forwarded_port", guest: 10443, host: 10443
     # CouchDB

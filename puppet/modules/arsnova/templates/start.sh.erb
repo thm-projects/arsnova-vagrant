@@ -33,17 +33,18 @@ PID_MOBILE=0
 PID_SERVER=0
 PID_LISTEN=0
 
+cd "$ARSNOVA_SERVER"
+eval "mvn -q jetty:run $OUTPUT_REDIRECT &"
+PID_SERVER=$!
+
 cd "$ARSNOVA_MOBILE"
 eval "ruby ~/listen.rb $OUTPUT_REDIRECT &"
 PID_LISTEN=$!
 
-eval "ant -quiet sencha:build:<%= @sencha_env %> $OUTPUT_REDIRECT"
-eval "ant -quiet sencha:app:watch -Denvironment=<%= @sencha_env %> $OUTPUT_REDIRECT &"
+eval "npm install"
+eval "grunt refresh $OUTPUT_REDIRECT"
+eval "grunt run:<%= @sencha_env %> $OUTPUT_REDIRECT &"
 PID_MOBILE=$!
-
-cd "$ARSNOVA_SERVER"
-eval "mvn -q jetty:run -Dmobile.path=<%= @mobile_target %> $OUTPUT_REDIRECT &"
-PID_SERVER=$!
 
 cd "$CWD"
 echo "$PID_LISTEN" > "$PID_FILE_LISTEN"
@@ -59,11 +60,10 @@ eval "mvn -q tomcat7:deploy $OUTPUT_REDIRECT &"
 
 ARSNOVA_WEB_PATH="/"
 ARSNOVA_CHECK_PATH="/arsnova-config"
+ARSNOVA_URL="http://localhost:8081"
 <% if @environment == "development" %>
-ARSNOVA_URL="http://localhost:8080"
 ARSNOVA_INTERNAL_URL="$ARSNOVA_URL"
 <% else %>
-ARSNOVA_URL="http://localhost:8081"
 ARSNOVA_INTERNAL_URL="http://localhost"
 <% end %>
 RESPONSE_CODE=0
@@ -75,4 +75,4 @@ do
   echo -e ".\c"
 done
 
-echo -e "\nARSnova is now ready @ $ARSNOVA_URL$ARSNOVA_WEB_PATH"
+echo -e "\nARSnova is now ready!"

@@ -1,6 +1,7 @@
 class arsnova {
   include senchacmd
   include git
+  #include nodejs
   if $environment == "production" {
     include tomcat7
   }
@@ -176,6 +177,12 @@ class arsnova {
       as_service => true
     }
   } else {
+    class { "nodejs":
+      version => "stable"
+    }
+
+    package { "grunt-cli": provider => "npm", require => Class["nodejs"] }
+
     class { 'sonarqube': }
 
     class { "jenkins":
