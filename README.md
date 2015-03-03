@@ -92,7 +92,9 @@ The following ports are used on the host machine:
 - 10444 (socket.io)
 - 5985 (CouchDB)
 
-## Using the GUI
+## Customization
+
+### Using the GUI
 
 If you wish to use the window manager [Xfce](http://www.xfce.org), you first need to shutdown your machine in case it is currently running. Use `vagrant halt` for this purpose. Then, edit the `Vagrantfile` and activate the GUI option:
 
@@ -103,6 +105,17 @@ If you wish to use the window manager [Xfce](http://www.xfce.org), you first nee
 Once you restart the VM, log in with Vagrant's default credentials: user and password are both `vagrant`. Finally, the GUI is started by entering:
 
 	startx
+
+### Performance settings
+
+We chose the lowest common denominator for CPU and memory settings. However, you can easily increase the performance by changing the values to your liking. See the section for the virtual machine provider:
+
+	config.vm.provider "virtualbox" do |vb|
+		vb.memory = 2048
+		vm.cpus = 2
+	end
+
+For additional settings, you have to use the command line parameters provided by [VBoxManage](http://www.virtualbox.org/manual/ch08.html). Please refer to the [Vagrant documentation](http://docs.vagrantup.com/v2/virtualbox/configuration.html) for the required syntax.
 
 ## Contributing
 
@@ -116,7 +129,7 @@ If files like `start.sh` are missing, it is most likely that the provisioning ha
 
 ### Script `start.sh` never returns.
 
-The first time this script runs it will take quite some time because Maven has to download a lot of dependencies. To see if an error occurs, run `./start.sh -v` which displays Ant's and Maven's verbose outputs.
+The first time this script runs it will take quite some time because Maven has to download a lot of dependencies. To see if an error occurs, run `./start.sh -v` which displays Grunt's and Maven's verbose outputs.
 
 ## Is it any good?
 
