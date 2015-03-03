@@ -1,7 +1,6 @@
 class arsnova {
   include senchacmd
   include git
-  #include nodejs
   if $environment == "production" {
     include tomcat7
   }
