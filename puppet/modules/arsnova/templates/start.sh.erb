@@ -41,7 +41,7 @@ cd "$ARSNOVA_MOBILE"
 eval "ruby ~/listen.rb $OUTPUT_REDIRECT &"
 PID_LISTEN=$!
 
-eval "npm install"
+eval "npm install $OUTPUT_REDIRECT"
 eval "grunt refresh $OUTPUT_REDIRECT"
 eval "grunt run:<%= @sencha_env %>:0.0.0.0 $OUTPUT_REDIRECT &"
 PID_MOBILE=$!
