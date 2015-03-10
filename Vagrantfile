@@ -48,7 +48,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   vb.gui = true
   #
      vb.memory = 2048
-     vm.cpus = 2
+     vb.cpus = 2
    end
   #
   # View the documentation for the provider you're using for more
