@@ -117,8 +117,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   chef.validation_client_name = "ORGNAME-validator"
 
   config.vm.provision :hosts do |provisioner|
-    provisioner.add_host '10.20.1.2', ['arsnova-dev.internal']
-    provisioner.add_host '10.20.1.3', ['arsnova-production.internal']
+    provisioner.add_host '192.168.33.2', ['arsnova-dev.internal']
+    provisioner.add_host '192.168.33.3', ['arsnova-production.internal']
   end
 
   config.vm.define "dev", primary: true do |dev|
@@ -133,7 +133,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         "vagrant_group" => "vagrant"
       }
     end
-    dev.vm.network :private_network, :ip => '10.20.1.2'
+    dev.vm.network :private_network, :ip => '192.168.33.2'
     dev.vm.network "forwarded_port", guest: 8080, host: 8080
     # socket.io port
     dev.vm.network "forwarded_port", guest: 10443, host: 10443
@@ -156,7 +156,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         "vagrant_group" => "vagrant"
       }
     end
-    production.vm.network :private_network, :ip => '10.20.1.3'
+    production.vm.network :private_network, :ip => '192.168.33.3'
     production.vm.network "forwarded_port", guest: 80, host: 8081
     # socket.io port
     production.vm.network "forwarded_port", guest: 10444, host: 10444
