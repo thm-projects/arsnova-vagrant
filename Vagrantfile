@@ -37,8 +37,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  synced_folder config, ".", "/vagrant"
-  synced_folder config, "./puppet/files", "/etc/puppet/files"
+  synced_folder_type = synced_folder config, ".", "/vagrant"
+  synced_folder_type = synced_folder config, "./puppet/files", "/etc/puppet/files"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -130,7 +130,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.options = ["--environment=development"]
       puppet.facter = {
         "vagrant_owner" => "vagrant",
-        "vagrant_group" => "vagrant"
+        "vagrant_group" => "vagrant",
+        "synced_folder_type" => synced_folder_type
       }
     end
     dev.vm.network :private_network, :ip => '192.168.33.2'
@@ -153,7 +154,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.options = ["--environment=production"]
       puppet.facter = {
         "vagrant_owner" => "vagrant",
-        "vagrant_group" => "vagrant"
+        "vagrant_group" => "vagrant",
+        "synced_folder_type" => synced_folder_type
       }
     end
     production.vm.network :private_network, :ip => '192.168.33.3'
@@ -167,17 +169,22 @@ end
 
 # Defines a synced folder with optimized options for the OS.
 def synced_folder config, host_path, guest_path
+  synced_folder_type = "vboxsf"
   case RUBY_PLATFORM
     when /darwin/ then
+      synced_folder_type = "nfs"
       config.vm.synced_folder host_path, guest_path,
           type: "nfs", :map_uid => 0, :map_gid => 0
     when /linux/ then
+      synced_folder_type = "nfs"
       config.vm.synced_folder host_path, guest_path,
           type: "nfs", :map_uid => 0, :map_gid => 0
     when /mswin|mingw|cygwin/ then
+      synced_folder_type = "smb"
       config.vm.synced_folder host_path, guest_path,
           type: "smb"
     else
       config.vm.synced_folder host_path, guest_path
   end
+  return synced_folder_type
 end
