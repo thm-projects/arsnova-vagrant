@@ -40,6 +40,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   synced_folder_type = synced_folder config, ".", "/vagrant"
   synced_folder_type = synced_folder config, "./puppet/files", "/etc/puppet/files"
 
+  # Map UID used inside the VM to the UID of the user who started Vagrant
+  config.nfs.map_uid = Process.uid
+  config.nfs.map_gid = Process.uid
+
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
@@ -174,11 +178,11 @@ def synced_folder config, host_path, guest_path
     when /darwin/ then
       synced_folder_type = "nfs"
       config.vm.synced_folder host_path, guest_path,
-          type: "nfs", :map_uid => 0, :map_gid => 0
+          type: "nfs"
     when /linux/ then
       synced_folder_type = "nfs"
       config.vm.synced_folder host_path, guest_path,
-          type: "nfs", :map_uid => 0, :map_gid => 0
+          type: "nfs"
     when /mswin|mingw|cygwin/ then
       synced_folder_type = "smb"
       config.vm.synced_folder host_path, guest_path,
