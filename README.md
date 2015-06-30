@@ -20,6 +20,8 @@ Next, install the required Vagrant plugin [vagrant-hosts](https://github.com/adr
 
 	vagrant plugin install vagrant-hosts
 
+If you are running Windows, you have to make sure that PowerShell version 3.0 or higher is installed. It is included in the [Windows Management Framework](https://www.microsoft.com/download/details.aspx?id=40855).
+
 ## Basic Usage
 
 Start the machine with the following command:
