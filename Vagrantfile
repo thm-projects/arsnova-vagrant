@@ -171,24 +171,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 end
 
-# Defines a synced folder with optimized options for the OS.
+# Defines a synced folder with optimized options for the OS and returns the
+# type.
 def synced_folder config, host_path, guest_path
-  synced_folder_type = "vboxsf"
+  options = Hash.new
   case RUBY_PLATFORM
-    when /darwin/ then
-      synced_folder_type = "nfs"
-      config.vm.synced_folder host_path, guest_path,
-          type: "nfs"
-    when /linux/ then
-      synced_folder_type = "nfs"
-      config.vm.synced_folder host_path, guest_path,
-          type: "nfs"
+    when /darwin|linux/ then
+      options[:type] = "nfs"
     when /mswin|mingw|cygwin/ then
-      synced_folder_type = "smb"
-      config.vm.synced_folder host_path, guest_path,
-          type: "smb"
+      options[:type] = "smb"
     else
-      config.vm.synced_folder host_path, guest_path
+      options[:type] = "vboxsf"
   end
-  return synced_folder_type
+  config.vm.synced_folder host_path, guest_path, options
+
+  options[:type]
 end
