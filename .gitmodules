@@ -1,6 +1,6 @@
 [submodule "puppet/modules/git"]
 	path = puppet/modules/git
-	url = git://github.com/nesi/puppet-git.git
+	url = https://github.com/commana/puppet-git.git
 [submodule "puppet/modules/stdlib"]
 	path = puppet/modules/stdlib
 	url = https://github.com/puppetlabs/puppetlabs-stdlib

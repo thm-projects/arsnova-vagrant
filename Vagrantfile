@@ -37,7 +37,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "./puppet/files", "/etc/puppet/files"
+  synced_folder_type = synced_folder config, ".", "/vagrant"
+  synced_folder_type = synced_folder config, "./puppet/files", "/etc/puppet/files"
+
+  # Map UID used inside the VM to the UID of the user who started Vagrant
+  config.nfs.map_uid = Process.uid
+  config.nfs.map_gid = Process.uid
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -116,8 +121,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   chef.validation_client_name = "ORGNAME-validator"
 
   config.vm.provision :hosts do |provisioner|
-    provisioner.add_host '10.20.1.2', ['arsnova-dev.internal']
-    provisioner.add_host '10.20.1.3', ['arsnova-production.internal']
+    provisioner.add_host '192.168.33.2', ['arsnova-dev.internal']
+    provisioner.add_host '192.168.33.3', ['arsnova-production.internal']
   end
 
   config.vm.define "dev", primary: true do |dev|
@@ -129,10 +134,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.options = ["--environment=development"]
       puppet.facter = {
         "vagrant_owner" => "vagrant",
-        "vagrant_group" => "vagrant"
+        "vagrant_group" => "vagrant",
+        "synced_folder_type" => synced_folder_type
       }
     end
-    dev.vm.network :private_network, :ip => '10.20.1.2'
+    dev.vm.network :private_network, :ip => '192.168.33.2'
     dev.vm.network "forwarded_port", guest: 8080, host: 8080
     # socket.io port
     dev.vm.network "forwarded_port", guest: 10443, host: 10443
@@ -152,14 +158,32 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.options = ["--environment=production"]
       puppet.facter = {
         "vagrant_owner" => "vagrant",
-        "vagrant_group" => "vagrant"
+        "vagrant_group" => "vagrant",
+        "synced_folder_type" => synced_folder_type
       }
     end
-    production.vm.network :private_network, :ip => '10.20.1.3'
+    production.vm.network :private_network, :ip => '192.168.33.3'
     production.vm.network "forwarded_port", guest: 80, host: 8081
     # socket.io port
     production.vm.network "forwarded_port", guest: 10444, host: 10444
     # CouchDB
     production.vm.network "forwarded_port", guest: 5984, host: 5985
   end
+end
+
+# Defines a synced folder with optimized options for the OS and returns the
+# type.
+def synced_folder config, host_path, guest_path
+  options = Hash.new
+  case RUBY_PLATFORM
+    when /darwin|linux/ then
+      options[:type] = "nfs"
+    when /mswin|mingw|cygwin/ then
+      options[:type] = "smb"
+    else
+      options[:type] = "vboxsf"
+  end
+  config.vm.synced_folder host_path, guest_path, options
+
+  options[:type]
 end
