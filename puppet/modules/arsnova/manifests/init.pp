@@ -29,7 +29,9 @@ class arsnova {
   }
   $mobile_target = "$mobile_path/src/main/webapp/build/$sencha_env/ARSnova"
 
-  package { "maven": ensure => "latest" }
+  class { "maven::maven":
+    version => "3.3.9",
+  }
   package { "couchdb": ensure => "latest" }
   package { "ant": ensure => "latest" }
   package { "ruby-dev": ensure => "latest" }

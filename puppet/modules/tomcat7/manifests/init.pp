@@ -12,14 +12,14 @@ class tomcat7 (
 
 	file { "/home/vagrant/.m2":
 		ensure => "directory",
-		require => Package["maven"],
+		require => Class["maven::maven"],
 		owner => "vagrant",
 		group => "vagrant"
 	}
 
 	file { "/home/vagrant/.m2/settings.xml":
 		content => template("tomcat7/settings.xml.erb"),
-		require => [ Package["maven"], File["/home/vagrant/.m2"] ],
+		require => File["/home/vagrant/.m2"],
 		owner => "vagrant",
 		group => "vagrant"
 	}
