@@ -1,5 +1,11 @@
 # ARSnova Vagrant
 
+*****
+
+:construction: This project is no longer maintained. :construction:
+
+*****
+
 This Vagrant configuration will provision a Debian development box with all tools required for ARSnova.
 
 ## Goal
